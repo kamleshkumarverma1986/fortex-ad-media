@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardBody } from "@heroui/react";
+import { TiltCard } from "./TiltCard";
 
 export default function TestimonialsSection() {
   const testimonials = [
@@ -63,31 +64,36 @@ export default function TestimonialsSection() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {testimonials.map((testimonial, index) => (
-            <Card
-              key={index}
-              className="bg-transparent border border-white/20 hover:border-blue-500 transition-all"
-            >
-              <CardBody className="p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
-                      👤
+            <TiltCard key={index}>
+              <Card>
+                <CardBody className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+                        👤
+                      </div>
+                      <div>
+                        <h3 className="text-white font-semibold">
+                          {testimonial.name}
+                        </h3>
+                        <p className="text-white/60 text-sm">
+                          {testimonial.handle}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-white font-semibold">
-                        {testimonial.name}
-                      </h3>
-                      <p className="text-white/60 text-sm">
-                        {testimonial.handle}
-                      </p>
-                    </div>
+                    <span className="text-blue-400 font-semibold text-sm">
+                      in
+                    </span>
                   </div>
-                  <span className="text-blue-400">in</span>
-                </div>
-                <p className="text-white/80 text-sm mb-3">{testimonial.text}</p>
-                <p className="text-blue-400 text-sm">{testimonial.hashtag}</p>
-              </CardBody>
-            </Card>
+                  <p className="text-white/80 text-sm mb-3 leading-relaxed">
+                    {testimonial.text}
+                  </p>
+                  <p className="text-blue-400 text-sm font-medium">
+                    {testimonial.hashtag}
+                  </p>
+                </CardBody>
+              </Card>
+            </TiltCard>
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardBody } from "@heroui/react";
+import { TiltCard } from "./TiltCard";
 
 export default function TeamSection() {
   const team = [
@@ -34,17 +35,19 @@ export default function TeamSection() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {team.map((member, index) => (
-            <Card key={index} className="bg-white/5 border border-white/10">
-              <CardBody className="text-center p-8">
-                <div className="w-32 h-32 mx-auto bg-white/10 rounded-lg flex items-center justify-center text-5xl mb-6">
-                  {member.image}
-                </div>
-                <h3 className="text-white text-xl font-bold mb-2">
-                  {member.name}
-                </h3>
-                <p className="text-white/70">{member.role}</p>
-              </CardBody>
-            </Card>
+            <TiltCard key={index}>
+              <Card className="bg-white/5 border border-white/10">
+                <CardBody className="text-center p-8">
+                  <div className="w-32 h-32 mx-auto bg-white/10 rounded-lg flex items-center justify-center text-5xl mb-6">
+                    {member.image}
+                  </div>
+                  <h3 className="text-white text-xl font-bold mb-2">
+                    {member.name}
+                  </h3>
+                  <p className="text-white/70">{member.role}</p>
+                </CardBody>
+              </Card>
+            </TiltCard>
           ))}
         </div>
       </div>

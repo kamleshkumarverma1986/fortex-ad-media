@@ -2,6 +2,7 @@
 
 import { Button, Input } from "@heroui/react";
 import Link from "next/link";
+import Copyright from "./Copyright";
 
 export default function Footer() {
   return (
@@ -107,7 +108,9 @@ export default function Footer() {
 
         {/* Bottom Copyright */}
         <div className="border-t border-white/10 pt-8 text-center">
-          <p className="text-white/60">© Copyright 2066, All Rights Reserved</p>
+          <p className="text-white/60">
+            <Copyright />
+          </p>
         </div>
       </div>
     </footer>
