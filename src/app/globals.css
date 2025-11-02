@@ -1,3 +1,11 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #001a4d; /* same as your section bg */
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
