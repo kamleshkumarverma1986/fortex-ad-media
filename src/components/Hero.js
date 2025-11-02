@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@heroui/react";
+import GradientButton from "./GradientButton";
 
 export default function HeroSection() {
   return (
@@ -33,14 +34,7 @@ export default function HeroSection() {
           </p>
 
           <div className="flex gap-4">
-            <Button
-              size="lg"
-              radius="sm"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-6"
-              endContent={<span>→</span>}
-            >
-              Get Started
-            </Button>
+            <GradientButton>Get Started</GradientButton>
             <Button
               size="lg"
               variant="bordered"

@@ -106,7 +106,8 @@ export default function ContactSection() {
               <Button
                 size="lg"
                 radius="sm"
-                className="bg-blue-600 hover:bg-blue-600 text-white font-semibold px-7 py-5"
+                className="bg-sky-700 hover:bg-sky-800 text-white"
+                endContent={<span> → </span>}
               >
                 Send Message
               </Button>

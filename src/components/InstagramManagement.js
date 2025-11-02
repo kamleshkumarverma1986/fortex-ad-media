@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@heroui/react";
+import GradientButton from "./GradientButton";
 
 export default function InstagramManagement() {
   return (
@@ -24,13 +25,7 @@ export default function InstagramManagement() {
               your brand&apos;s essence and engage your target audience
               effectively. Inquire now!
             </p>
-            <Button
-              size="lg"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-              endContent={<span>→</span>}
-            >
-              Get Started
-            </Button>
+            <GradientButton>Get Started</GradientButton>
           </div>
         </div>
       </div>

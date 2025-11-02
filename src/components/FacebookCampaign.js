@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@heroui/react";
+import GradientButton from "./GradientButton";
 
 export default function FacebookCampaign() {
   return (
@@ -16,13 +17,7 @@ export default function FacebookCampaign() {
               We create data-driven Facebook ad campaigns tailored to your
               business goals, ensuring maximum reach and engagement. Learn more!
             </p>
-            <Button
-              size="lg"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-              endContent={<span>→</span>}
-            >
-              Get Started
-            </Button>
+            <GradientButton>Get Started</GradientButton>
           </div>
 
           {/* Right - Meta Logo Visual */}

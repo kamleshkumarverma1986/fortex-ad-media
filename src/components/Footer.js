@@ -100,7 +100,7 @@ export default function Footer() {
                 inputWrapper: "border-white/30",
               }}
             />
-            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+            <Button className="w-full bg-sky-700 hover:bg-sky-800 text-white">
               Subscribe
             </Button>
           </div>
