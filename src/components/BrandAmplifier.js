@@ -1,5 +1,6 @@
 "use client";
 import ResponsiveImage from "./ResponsiveImage";
+import { TiltCard } from "./TiltCard";
 
 export default function BrandAmplifier() {
   return (
@@ -7,18 +8,22 @@ export default function BrandAmplifier() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left - Social Media Visual */}
-          <ResponsiveImage
-            src="/images/social-medias.jpeg"
-            alt="social-medias"
-            fill
-            className="w-full h-96"
-            rounded="lg"
-            overlay={
-              <div>
-                <h1 className="text-4xl font-bold mb-4">Amplify Your Brand</h1>
-              </div>
-            }
-          />
+          <TiltCard>
+            <ResponsiveImage
+              src="/images/social-medias.jpeg"
+              alt="social-medias"
+              fill
+              className="w-full h-96"
+              rounded="lg"
+              overlay={
+                <div>
+                  <h1 className="text-4xl font-bold mb-4">
+                    Amplify Your Brand
+                  </h1>
+                </div>
+              }
+            />
+          </TiltCard>
           {/* Right - Content */}
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
