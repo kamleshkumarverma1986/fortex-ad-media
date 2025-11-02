@@ -35,7 +35,8 @@ export default function HeroSection() {
           <div className="flex gap-4">
             <Button
               size="lg"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+              radius="sm"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-6"
               endContent={<span>→</span>}
             >
               Get Started

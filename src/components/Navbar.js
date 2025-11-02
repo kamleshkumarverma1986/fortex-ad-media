@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@heroui/react";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -15,7 +16,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-[#0F172A]/80 backdrop-blur-md border-b border-white/10">
+    <nav className="fixed top-0 w-full z-50 bg-[#0F172A]/80 backdrop-blur-md border-white/10">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -66,16 +67,20 @@ export default function Navbar() {
               Login
             </Button>
             <Button
-              color="primary"
-              className="bg-blue-600 hover:bg-blue-700 hidden md:flex"
+              as="a"
+              href="https://api.whatsapp.com/send?phone=919425260042&text=Hello, I want to enquire for the service"
+              target="_blank"
+              rel="noopener noreferrer"
+              size="md"
+              radius="md"
+              className="hidden md:flex font-semibold bg-blue-600 hover:bg-blue-700 text-white px-6"
             >
               Chat With Us
             </Button>
-
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-white text-2xl"
+              className="md:hidden text-white text-3xl"
             >
               {isMobileMenuOpen ? "✕" : "☰"}
             </button>

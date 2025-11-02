@@ -108,9 +108,7 @@ export default function Footer() {
 
         {/* Bottom Copyright */}
         <div className="border-t border-white/10 pt-8 text-center">
-          <p className="text-white/60">
-            <Copyright />
-          </p>
+          <Copyright />
         </div>
       </div>
     </footer>

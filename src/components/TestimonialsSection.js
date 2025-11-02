@@ -62,33 +62,33 @@ export default function TestimonialsSection() {
           What Our Clients Are Saying
         </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {testimonials.map((testimonial, index) => (
             <TiltCard key={index}>
-              <Card>
-                <CardBody className="p-6">
+              <Card className="bg-transparent h-full">
+                <CardBody className="p-6 flex flex-col h-full">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center flex-shrink-0">
                         👤
                       </div>
-                      <div>
-                        <h3 className="text-white font-semibold">
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-white font-semibold break-words">
                           {testimonial.name}
                         </h3>
-                        <p className="text-white/60 text-sm">
+                        <p className="text-white/60 text-sm break-words">
                           {testimonial.handle}
                         </p>
                       </div>
                     </div>
-                    <span className="text-blue-400 font-semibold text-sm">
+                    <span className="text-blue-400 font-semibold text-sm ml-2 flex-shrink-0">
                       in
                     </span>
                   </div>
-                  <p className="text-white/80 text-sm mb-3 leading-relaxed">
+                  <p className="text-white/80 text-sm mb-3 leading-relaxed flex-grow break-words">
                     {testimonial.text}
                   </p>
-                  <p className="text-blue-400 text-sm font-medium">
+                  <p className="text-blue-400 text-sm font-medium break-words">
                     {testimonial.hashtag}
                   </p>
                 </CardBody>
