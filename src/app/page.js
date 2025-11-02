@@ -1,19 +1,31 @@
 "use client";
 
-import { Button } from "@heroui/react";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/Hero";
+import BrandAmplifier from "@/components/BrandAmplifier";
+import KeyFeatures from "@/components/KeyFeatures";
+import FacebookCampaign from "@/components/FacebookCampaign";
+import InstagramManagement from "@/components/InstagramManagement";
+import TeamSection from "@/components/TeamSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import ContactSection from "@/components/ContactSection";
+import BrandPotential from "@/components/BrandPotential";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500">
-      <div className="text-center">
-        <h1 className="text-5xl font-bold text-white mb-4">Fortex AD Media</h1>
-        <p className="text-xl text-white/90 mb-8">
-          Your partner in crafting compelling ad campaigns
-        </p>
-        <Button color="primary" size="lg" className="font-semibold">
-          Get Started
-        </Button>
-      </div>
-    </div>
+    <>
+      <Navbar />
+      <HeroSection />
+      <BrandAmplifier />
+      <KeyFeatures />
+      <FacebookCampaign />
+      <InstagramManagement />
+      <TeamSection />
+      <TestimonialsSection />
+      <ContactSection />
+      <BrandPotential />
+      <Footer />
+    </>
   );
 }
