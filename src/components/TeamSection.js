@@ -39,7 +39,7 @@ export default function TeamSection() {
           {team.map((member, index) => (
             <PremiumCard key={index}>
               <Card className="bg-white/5 border border-white/10">
-                <CardBody className="text-center p-8">
+                <CardBody className="text-center">
                   <ResponsiveImage
                     src={`/images/${member.image}.jpeg`}
                     alt="members"

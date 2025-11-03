@@ -10,7 +10,7 @@ import TeamSection from "@/components/TeamSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import BrandPotential from "@/components/BrandPotential";
-import Footer from "@/components/Footer";
+import PricingSection from "@/components/PricingSection";
 
 export default function Home() {
   return (
@@ -20,6 +20,7 @@ export default function Home() {
       <KeyFeatures />
       <FacebookCampaign />
       <InstagramManagement />
+      <PricingSection />
       <TeamSection />
       <TestimonialsSection />
       <ContactSection />

@@ -1,25 +1,20 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import {
-  Button,
-  Input,
-  Card,
-  CardBody,
-  CardHeader,
-  CardFooter,
-  Spinner,
-} from "@heroui/react";
-import { FaLock } from "react-icons/fa";
-import { useFetch } from "@/hooks/useFetch";
+import { Button, Input } from "@heroui/react";
+import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
+import { MdSecurity } from "react-icons/md";
 import Copyright from "@/components/Copyright";
 import AlertBox from "@/components/AlertBox";
 import Loading from "@/components/Loading";
+import CustomInput from "@/components/CustomInput";
+import { FiMail } from "react-icons/fi";
+import { FiLock } from "react-icons/fi";
 
 const initialFormData = {
-  mobileNumber: "",
-  otp: "",
+  email: "",
+  password: "",
 };
 
 export default function AdminLogin() {
@@ -28,53 +23,45 @@ export default function AdminLogin() {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertProps, setAlertProps] = useState(null);
   const [formData, setFormData] = useState(initialFormData);
-  const [isOtpSent, setIsOtpSent] = useState(false);
   const [isLogging, setIsLogging] = useState(false);
-  const [sendOtp, isOtpSending, otpData, otpError] = useFetch("/api/send-otp");
+  const [showPassword, setShowPassword] = useState(false);
 
+  // ✅ handle redirect in useEffect instead of during render
   useEffect(() => {
-    if (!otpData) return;
-    const timeout = setTimeout(() => {
-      setIsOtpSent(true);
-    }, 0);
-    return () => clearTimeout(timeout);
-  }, [otpData]);
-
-  useEffect(() => {
-    if (!otpError) return;
-    const timeout = setTimeout(() => {
-      setIsAlertOpen(true);
-      setAlertProps(otpError);
-    }, 0);
-    return () => clearTimeout(timeout);
-  }, [otpError]);
-
-  const sendOtpToMobileNumber = () => {
-    sendOtp({
-      method: "POST",
-      body: JSON.stringify({ mobileNumber: formData.mobileNumber }),
-    });
-  };
+    if (status === "authenticated") {
+      router.replace("/admin-dashboard");
+    }
+  }, [status, router]);
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    if (!isOtpSent) {
-      sendOtpToMobileNumber();
-    } else {
-      setIsLogging(true);
-      const { status } = await signIn("credentials", {
-        ...formData,
+    setIsLogging(true);
+
+    try {
+      const result = await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
         redirect: false,
         callbackUrl: "/admin-dashboard",
       });
-      if (status === 401) {
+
+      if (result?.error || result?.status === 401) {
         setIsAlertOpen(true);
         setAlertProps({
           isSuccess: false,
-          message: "Invalid Credentials!",
+          message: "Invalid email or password!",
         });
         setIsLogging(false);
+      } else if (result?.ok) {
+        router.push("/admin-dashboard");
       }
+    } catch (error) {
+      setIsAlertOpen(true);
+      setAlertProps({
+        isSuccess: false,
+        message: "Something went wrong. Please try again.",
+      });
+      setIsLogging(false);
     }
   };
 
@@ -85,105 +72,81 @@ export default function AdminLogin() {
     });
   };
 
-  const onMobileNumberChangeHandler = () => {
-    setFormData(initialFormData);
-    setIsOtpSent(false);
-  };
-
-  if (status === "loading") return <Loading />;
-  if (status === "authenticated") return router.replace("admin-dashboard");
+  if (status === "loading") return <Loading size={50} />;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#0f172a] px-4">
-      <Card className="w-full max-w-sm p-6 shadow-lg bg-[#1e293b] border border-white/10">
-        <CardHeader className="flex flex-col items-center text-white gap-2">
-          <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center">
-            <FaLock size={24} color="white" />
-          </div>
-          <h1 className="text-xl font-semibold">Admin Panel Login</h1>
-        </CardHeader>
-        <CardBody as="form" onSubmit={handleLoginSubmit} className="space-y-4">
-          <Input
-            type="number"
-            name="mobileNumber"
-            placeholder="Enter your mobile number"
-            isRequired
-            value={formData.mobileNumber}
-            onChange={handleFormChange}
-            isDisabled={isOtpSent}
-            fullWidth
-            classNames={{
-              label: "text-white font-medium mb-2",
-              input: "text-white",
-              inputWrapper: "bg-[#334155] border-white/20",
-            }}
-          />
-          {!isOtpSent && (
-            <p className="text-xs text-gray-400">
-              We will send OTP on your mobile number
-            </p>
-          )}
-          {isOtpSent && (
-            <>
-              <Input
-                type="number"
-                name="otp"
-                label="Enter OTP"
-                labelPlacement="outside"
-                placeholder="Enter OTP"
-                isRequired
-                value={formData.otp}
-                onChange={handleFormChange}
-                autoFocus
-                fullWidth
-                variant="bordered"
-                classNames={{
-                  // remove native outline, keep placeholder subtle
-                  input:
-                    "text-white placeholder:text-white/50 focus:outline-none appearance-none bg-transparent",
-                  // control border visually from wrapper and show single ring on focus-within
-                  inputWrapper:
-                    "bg-transparent border border-white/30 transition-colors rounded-md px-2 py-1 focus-within:border-white/60 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-0",
-                }}
-              />
-              <div className="flex justify-between text-xs">
-                <Button
-                  size="sm"
-                  variant="light"
-                  onClick={sendOtpToMobileNumber}
-                  isLoading={isOtpSending}
-                  className="text-blue-400"
-                >
-                  Resend OTP
-                </Button>
-                <Button
-                  size="sm"
-                  variant="light"
-                  onClick={onMobileNumberChangeHandler}
-                  className="text-gray-300"
-                >
-                  Change Mobile Number
-                </Button>
-              </div>
-            </>
-          )}
-        </CardBody>
-        <CardFooter className="flex flex-col gap-3">
-          <Button
-            type="submit"
-            fullWidth
-            color="primary"
-            isLoading={isLogging || isOtpSending}
-            onPress={handleLoginSubmit}
-          >
-            {isOtpSent ? "Admin Login" : "Send OTP"}
-          </Button>
-        </CardFooter>
-      </Card>
+    <div className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-4 overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
 
-      <div className="mt-6 text-gray-400 text-sm">
+      {/* Main Card */}
+      <div className="relative w-full max-w-md p-8 shadow-2xl bg-slate-900/80 backdrop-blur-xl border border-white/10 transition-all duration-300 rounded-2xl">
+        <div className="flex flex-col items-center text-white gap-4 pb-6">
+          <div className="relative">
+            <div className="absolute inset-0 bg-blue-600 rounded-full blur-xl opacity-50 animate-pulse"></div>
+            <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-lg">
+              <FaLock size={28} color="white" />
+            </div>
+          </div>
+          <div className="text-center">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+              Admin Panel
+            </h1>
+            <p className="text-sm text-slate-400 mt-1">Secure Access Portal</p>
+          </div>
+        </div>
+
+        <form onSubmit={handleLoginSubmit} className="space-y-5">
+          {/* Email Input */}
+          <div className="relative">
+            <CustomInput
+              type="email"
+              name="email"
+              icon={FiMail}
+              value={formData.email}
+              onChange={handleFormChange}
+              placeholder="Enter your email"
+            />
+          </div>
+
+          {/* Password Input */}
+          <div className="relative">
+            <CustomInput
+              type="password"
+              name="password"
+              icon={FiLock}
+              value={formData.password}
+              onChange={handleFormChange}
+              placeholder="Enter your password"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="pt-4">
+            <Button
+              type="submit"
+              fullWidth
+              size="lg"
+              isLoading={isLogging}
+              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 
+             text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 
+             min-h-[52px]" // ✅ keeps button height stable during spinner
+            >
+              Login to Dashboard
+            </Button>
+          </div>
+        </form>
+      </div>
+
+      {/* Footer */}
+      <div className="relative mt-8 text-slate-400 text-sm">
         <Copyright />
       </div>
+
+      {/* Alert */}
       <AlertBox
         isOpen={isAlertOpen}
         handleClose={() => setIsAlertOpen(false)}
