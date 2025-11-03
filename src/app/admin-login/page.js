@@ -1,157 +1,25 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useSession, signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { Button, Input } from "@heroui/react";
-import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
-import { MdSecurity } from "react-icons/md";
-import Copyright from "@/components/Copyright";
-import AlertBox from "@/components/AlertBox";
-import Loading from "@/components/Loading";
-import CustomInput from "@/components/CustomInput";
-import { FiMail } from "react-icons/fi";
-import { FiLock } from "react-icons/fi";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import AdminLogin from "@/components/AdminLogin";
 
-const initialFormData = {
-  email: "",
-  password: "",
+// Force dynamic rendering and prevent caching
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
+
+export const metadata = {
+  title: "Admin Login",
 };
 
-export default function AdminLogin() {
-  const { status } = useSession();
-  const router = useRouter();
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [alertProps, setAlertProps] = useState(null);
-  const [formData, setFormData] = useState(initialFormData);
-  const [isLogging, setIsLogging] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+export default async function ServerAdminLogin() {
+  const session = await getServerSession(authOptions);
 
-  // ✅ handle redirect in useEffect instead of during render
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.replace("/admin-dashboard");
-    }
-  }, [status, router]);
+  // If session already exists, redirect to dashboard
+  if (session) {
+    redirect("/admin-dashboard");
+  }
 
-  const handleLoginSubmit = async (e) => {
-    e.preventDefault();
-    setIsLogging(true);
-
-    try {
-      const result = await signIn("credentials", {
-        email: formData.email,
-        password: formData.password,
-        redirect: false,
-        callbackUrl: "/admin-dashboard",
-      });
-
-      if (result?.error || result?.status === 401) {
-        setIsAlertOpen(true);
-        setAlertProps({
-          isSuccess: false,
-          message: "Invalid email or password!",
-        });
-        setIsLogging(false);
-      } else if (result?.ok) {
-        router.push("/admin-dashboard");
-      }
-    } catch (error) {
-      setIsAlertOpen(true);
-      setAlertProps({
-        isSuccess: false,
-        message: "Something went wrong. Please try again.",
-      });
-      setIsLogging(false);
-    }
-  };
-
-  const handleFormChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  if (status === "loading") return <Loading size={50} />;
-
-  return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 px-4 overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
-
-      {/* Main Card */}
-      <div className="relative w-full max-w-md p-8 shadow-2xl bg-slate-900/80 backdrop-blur-xl border border-white/10 transition-all duration-300 rounded-2xl">
-        <div className="flex flex-col items-center text-white gap-4 pb-6">
-          <div className="relative">
-            <div className="absolute inset-0 bg-blue-600 rounded-full blur-xl opacity-50 animate-pulse"></div>
-            <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-lg">
-              <FaLock size={28} color="white" />
-            </div>
-          </div>
-          <div className="text-center">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-              Admin Panel
-            </h1>
-            <p className="text-sm text-slate-400 mt-1">Secure Access Portal</p>
-          </div>
-        </div>
-
-        <form onSubmit={handleLoginSubmit} className="space-y-5">
-          {/* Email Input */}
-          <div className="relative">
-            <CustomInput
-              type="email"
-              name="email"
-              icon={FiMail}
-              value={formData.email}
-              onChange={handleFormChange}
-              placeholder="Enter your email"
-            />
-          </div>
-
-          {/* Password Input */}
-          <div className="relative">
-            <CustomInput
-              type="password"
-              name="password"
-              icon={FiLock}
-              value={formData.password}
-              onChange={handleFormChange}
-              placeholder="Enter your password"
-            />
-          </div>
-
-          {/* Submit Button */}
-          <div className="pt-4">
-            <Button
-              type="submit"
-              fullWidth
-              size="lg"
-              isLoading={isLogging}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 
-             text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 
-             min-h-[52px]" // ✅ keeps button height stable during spinner
-            >
-              Login to Dashboard
-            </Button>
-          </div>
-        </form>
-      </div>
-
-      {/* Footer */}
-      <div className="relative mt-8 text-slate-400 text-sm">
-        <Copyright />
-      </div>
-
-      {/* Alert */}
-      <AlertBox
-        isOpen={isAlertOpen}
-        handleClose={() => setIsAlertOpen(false)}
-        {...alertProps}
-      />
-    </div>
-  );
+  // User is not logged in, show login page
+  return <AdminLogin />;
 }
