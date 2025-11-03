@@ -46,6 +46,7 @@ export default function AdminLogin({ session }) {
         setIsLogging(false);
       } else if (result?.ok) {
         router.push("/admin-dashboard");
+        router.refresh();
       }
     } catch (error) {
       setIsAlertOpen(true);
@@ -101,6 +102,7 @@ export default function AdminLogin({ session }) {
               value={formData.email}
               onChange={handleFormChange}
               placeholder="Enter your email"
+              disabled={isLogging}
             />
           </div>
 
@@ -113,22 +115,28 @@ export default function AdminLogin({ session }) {
               value={formData.password}
               onChange={handleFormChange}
               placeholder="Enter your password"
+              disabled={isLogging}
             />
           </div>
 
           {/* Submit Button */}
           <div className="pt-4">
-            <Button
-              type="submit"
-              fullWidth
-              size="lg"
-              isLoading={isLogging}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 
-             text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 
-             min-h-[52px]" // ✅ keeps button height stable during spinner
-            >
-              Login to Dashboard
-            </Button>
+            <div className="pt-4">
+              <Button
+                type="submit"
+                fullWidth
+                size="lg"
+                isLoading={isLogging}
+                isDisabled={isLogging}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 
+   text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 
+   h-[52px] flex items-center justify-center"
+              >
+                <span className="flex items-center justify-center gap-2">
+                  {isLogging ? "Logging in..." : "Login to Dashboard"}
+                </span>
+              </Button>
+            </div>
           </div>
         </form>
       </div>
