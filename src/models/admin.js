@@ -12,6 +12,10 @@ const AdminSchema = new Schema({
     trim: true,
     minlength: 8,
   },
+  isAdmin: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const Admin = models?.Admin || model("Admin", AdminSchema);

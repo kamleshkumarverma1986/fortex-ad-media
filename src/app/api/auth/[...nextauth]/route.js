@@ -33,7 +33,8 @@ export const authOptions = {
           return {
             id: admin._id.toString(),
             email: admin.email,
-            role: "admin",
+            name: admin.email,
+            isAdmin: admin.isAdmin,
           };
         }
 
@@ -62,7 +63,7 @@ export const authOptions = {
   ],
 
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       // For social login (normal users)
       if (account.provider === "google" || account.provider === "facebook") {
         await connectToDB();
@@ -76,11 +77,11 @@ export const authOptions = {
             name: user.name,
             image: user.image,
             provider: account.provider,
+            isAdmin: false,
           });
         }
 
         user.id = existingUser._id.toString();
-        user.role = "user";
         return true;
       }
 
@@ -88,18 +89,50 @@ export const authOptions = {
       return true;
     },
 
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, trigger }) {
+      // Initial sign in
       if (user) {
-        token.role = user.role;
         token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+        token.isAdmin = user.isAdmin;
       }
+
+      // Fetch isAdmin from database if not already set (for social logins)
+      if (token.email && token.isAdmin === undefined) {
+        try {
+          await connectToDB();
+
+          // Check if admin first
+          const admin = await Admin.findOne({ email: token.email });
+          if (admin) {
+            token.isAdmin = true;
+            token.id = admin._id.toString();
+          } else {
+            // Check regular user
+            const regularUser = await User.findOne({ email: token.email });
+            if (regularUser) {
+              token.isAdmin = regularUser.isAdmin || false;
+              token.id = regularUser._id.toString();
+            } else {
+              token.isAdmin = false;
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching user data in jwt callback:", error);
+          token.isAdmin = false;
+        }
+      }
+
       return token;
     },
 
     async session({ session, token }) {
       if (token) {
-        session.user.role = token.role;
         session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.isAdmin = token.isAdmin || false;
       }
       return session;
     },

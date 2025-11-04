@@ -1,10 +1,9 @@
 "use client";
 import { Button } from "@heroui/react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { RiMenuLine, RiCloseLargeLine } from "react-icons/ri";
 import { useSession, signOut } from "next-auth/react";
-import GradientButton from "./GradientButton";
 import LoadingButton from "./LoadingButton";
 import LoginModal from "./LoginModal";
 
@@ -27,6 +26,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const { data: session, status } = useSession();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -52,8 +52,7 @@ export default function Navbar() {
       // Handle logout
       try {
         setIsLoggingOut(true);
-        const callbackUrl =
-          session?.user?.role === "admin" ? "/admin-login" : "/";
+        const callbackUrl = session?.user?.isAdmin ? "/admin-login" : "/";
         await signOut({ callbackUrl });
       } catch (error) {
         console.error("Logout error:", error);
@@ -66,11 +65,28 @@ export default function Navbar() {
     }
   };
 
+  const handleDashboardClick = () => {
+    if (session?.user?.isAdmin) {
+      router.push("/admin-dashboard");
+    } else {
+      router.push("/user-dashboard");
+    }
+  };
+
   // Get button text - only show when status is resolved
   const getButtonText = () => {
     if (status === "loading") return "";
     return status === "authenticated" ? "Logout" : "Login";
   };
+
+  // Get dashboard button text - only show when authenticated
+  const getDashboardText = () => {
+    if (status === "loading") return "";
+    return status === "authenticated" ? "Dashboard" : "";
+  };
+
+  // Check if we're on the home page (only show menu on home page)
+  const isHomePage = pathname === "/";
 
   // Navigation Menu Component - only menu items
   const NavigationMenu = ({ isMobile = false }) => (
@@ -99,13 +115,26 @@ export default function Navbar() {
               Fortex Ad Media
             </button>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
-              <NavigationMenu />
-            </div>
+            {/* Desktop Navigation - Only visible on home page */}
+            {isHomePage && (
+              <div className="hidden lg:flex items-center gap-8">
+                <NavigationMenu />
+              </div>
+            )}
 
-            {/* Right Buttons - Always visible in header for both mobile and desktop */}
-            <div className="flex items-center gap-2 lg:gap-3">
+            {/* Right Buttons - Fixed width container to prevent layout shift */}
+            <div className="flex items-center gap-2 lg:gap-3 min-w-[150px] lg:min-w-[235px] justify-end">
+              {/* Dashboard Button - Using LoadingButton pattern for consistency */}
+              <LoadingButton
+                variant="light"
+                className="bg-transparent hover:bg-white/10 text-white font-medium transition-all duration-200 
+                      min-w-[80px] lg:min-w-[100px] h-[36px] lg:h-[42px] text-xs lg:text-sm px-2 lg:px-4"
+                onPress={handleDashboardClick}
+                isDisabled={status !== "authenticated"}
+              >
+                {getDashboardText()}
+              </LoadingButton>
+
               <LoadingButton
                 variant="light"
                 className="bg-transparent hover:bg-white/10 text-white font-medium transition-all duration-200 
@@ -117,32 +146,20 @@ export default function Navbar() {
                 {getButtonText()}
               </LoadingButton>
 
-              <GradientButton
-                as="a"
-                href="https://api.whatsapp.com/send?phone=919425260042&text=Hello, I want to enquire for the service"
-                target="_blank"
-                rel="noopener noreferrer"
-                size="md"
-                radius="md"
-                className="flex px-3 lg:px-6 h-[36px] lg:h-[42px] text-xs lg:text-sm whitespace-nowrap 
-                      font-semibold shadow-md hover:shadow-lg transition-all duration-200"
-              >
-                <span className="hidden sm:inline">Chat With Us →</span>
-                <span className="sm:hidden">Chat →</span>
-              </GradientButton>
-
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden text-white text-3xl ml-1"
-              >
-                {isMobileMenuOpen ? <RiCloseLargeLine /> : <RiMenuLine />}
-              </button>
+              {/* Mobile Menu Button - Only visible on home page */}
+              {isHomePage && (
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="lg:hidden text-white text-3xl ml-1"
+                >
+                  {isMobileMenuOpen ? <RiCloseLargeLine /> : <RiMenuLine />}
+                </button>
+              )}
             </div>
           </div>
 
-          {/* Mobile Menu - Only navigation items, NO buttons */}
-          {isMobileMenuOpen && (
+          {/* Mobile Menu - Only visible on home page */}
+          {isHomePage && isMobileMenuOpen && (
             <div className="lg:hidden mt-4 pb-4 space-y-2">
               <NavigationMenu isMobile />
             </div>

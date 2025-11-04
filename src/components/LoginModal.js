@@ -19,7 +19,7 @@ export default function LoginModal({ isOpen, onClose }) {
     setIsLoading({ ...isLoading, [provider]: true });
     try {
       await signIn(provider, {
-        callbackUrl: "/",
+        callbackUrl: "/user-dashboard",
         redirect: true,
       });
     } catch (error) {
