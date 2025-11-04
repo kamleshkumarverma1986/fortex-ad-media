@@ -12,7 +12,7 @@ export const connectToDB = async () => {
 
   try {
     await mongoose.connect(process.env.MONGO_DATABASE_URL, {
-      dbName: "focus_class_db",
+      dbName: "fortex-ad-media",
     });
 
     isConnected = true;
