@@ -11,6 +11,7 @@ import Loading from "@/components/Loading";
 import CustomInput from "@/components/CustomInput";
 import { FiMail } from "react-icons/fi";
 import { FiLock } from "react-icons/fi";
+import LoadingButton from "./LoadingButton";
 
 const initialFormData = {
   email: "",
@@ -97,6 +98,7 @@ export default function AdminLogin({ session }) {
           <div className="relative">
             <CustomInput
               type="email"
+              required={true}
               name="email"
               icon={FiMail}
               value={formData.email}
@@ -110,6 +112,7 @@ export default function AdminLogin({ session }) {
           <div className="relative">
             <CustomInput
               type="password"
+              required={true}
               name="password"
               icon={FiLock}
               value={formData.password}
@@ -122,20 +125,17 @@ export default function AdminLogin({ session }) {
           {/* Submit Button */}
           <div className="pt-4">
             <div className="pt-4">
-              <Button
+              <LoadingButton
                 type="submit"
-                fullWidth
+                fullWidth={true}
                 size="lg"
                 isLoading={isLogging}
-                isDisabled={isLogging}
                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 
-   text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 
-   h-[52px] flex items-center justify-center"
+                    text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 
+                    h-[52px] flex items-center justify-center"
               >
-                <span className="flex items-center justify-center gap-2">
-                  {isLogging ? "Logging in..." : "Login to Dashboard"}
-                </span>
-              </Button>
+                Login to Dashboard!
+              </LoadingButton>
             </div>
           </div>
         </form>

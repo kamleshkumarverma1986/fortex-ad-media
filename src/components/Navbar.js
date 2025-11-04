@@ -7,11 +7,28 @@ import { RiMenuLine, RiCloseLargeLine } from "react-icons/ri";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import GradientButton from "./GradientButton";
+import LoadingButton from "./LoadingButton";
+
+// Reusable MenuItem Component
+const MenuItem = ({ item, onPress, isMobile = false }) => (
+  <Button
+    onPress={() => onPress(item.id)}
+    className={`text-white/90 hover:text-white transition bg-transparent ${
+      isMobile
+        ? "w-full justify-start py-2"
+        : "min-w-0 h-auto p-0 m-0 text-base font-normal"
+    }`}
+    disableAnimation
+  >
+    {item.label}
+  </Button>
+);
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
   const { status } = useSession();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -30,6 +47,39 @@ export default function Navbar() {
     { id: "contact", label: "Contact" },
   ];
 
+  const handlePress = async () => {
+    if (status === "authenticated") {
+      try {
+        setIsLoggingOut(true);
+        await signOut({ callbackUrl: "/admin-login" });
+      } finally {
+        setIsLoggingOut(false);
+      }
+    } else {
+      // handle login logic here
+    }
+  };
+
+  // Get button text - only show when status is resolved
+  const getButtonText = () => {
+    if (status === "loading") return "";
+    return status === "authenticated" ? "Logout" : "Login";
+  };
+
+  // Navigation Menu Component - only menu items
+  const NavigationMenu = ({ isMobile = false }) => (
+    <>
+      {menuItems.map((item) => (
+        <MenuItem
+          key={item.id}
+          item={item}
+          onPress={scrollToSection}
+          isMobile={isMobile}
+        />
+      ))}
+    </>
+  );
+
   return (
     <nav className="fixed top-0 w-full z-50 bg-[#0F172A]/80 backdrop-blur-md border-b border-white/10">
       <div className="max-w-7xl mx-auto px-6 py-4">
@@ -44,33 +94,21 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
-            {menuItems.map((item) => (
-              <Button
-                key={item.id}
-                onPress={() => scrollToSection(item.id)}
-                className="text-white/90 hover:text-white transition bg-transparent min-w-0 h-auto p-0 m-0 text-base font-normal"
-                disableAnimation
-              >
-                {item.label}
-              </Button>
-            ))}
+            <NavigationMenu />
           </div>
 
-          {/* Right Buttons */}
-          <div className="flex items-center gap-4">
-            <Button
+          {/* Right Buttons - Always visible in header for both mobile and desktop */}
+          <div className="flex items-center gap-2 lg:gap-3">
+            <LoadingButton
               variant="light"
-              className="text-white hidden lg:flex h-auto p-0 text-base font-normal"
-              onPress={() => {
-                if (status === "authenticated") {
-                  return signOut({ callbackUrl: "/admin-login" });
-                } else {
-                  // we will do login
-                }
-              }}
+              className="bg-transparent hover:bg-white/10 text-white font-medium transition-all duration-200 
+                    min-w-[60px] lg:min-w-[85px] h-[36px] lg:h-[42px] text-xs lg:text-sm px-2 lg:px-4"
+              onPress={handlePress}
+              isLoading={isLoggingOut}
+              isDisabled={status === "loading"}
             >
-              {status === "authenticated" ? "Logout" : "Login"}
-            </Button>
+              {getButtonText()}
+            </LoadingButton>
 
             <GradientButton
               as="a"
@@ -79,58 +117,27 @@ export default function Navbar() {
               rel="noopener noreferrer"
               size="md"
               radius="md"
-              className="hidden lg:flex px-6"
+              className="flex px-3 lg:px-6 h-[36px] lg:h-[42px] text-xs lg:text-sm whitespace-nowrap 
+                    font-semibold shadow-md hover:shadow-lg transition-all duration-200"
             >
-              Chat With Us →
+              <span className="hidden sm:inline">Chat With Us →</span>
+              <span className="sm:hidden">Chat →</span>
             </GradientButton>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden text-white text-4xl"
+              className="lg:hidden text-white text-3xl ml-1"
             >
               {isMobileMenuOpen ? <RiCloseLargeLine /> : <RiMenuLine />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Only navigation items, NO buttons */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 space-y-4">
-            {menuItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="block w-full text-left text-white/90 hover:text-white transition py-2"
-              >
-                {item.label}
-              </button>
-            ))}
-            <Button
-              variant="light"
-              className="text-white w-full"
-              onPress={() => {
-                if (status === "authenticated") {
-                  return signOut({ callbackUrl: "/admin-login" });
-                } else {
-                  // we will do login
-                }
-              }}
-            >
-              {status === "authenticated" ? "Logout" : "Login"}
-            </Button>
-
-            <GradientButton
-              as="a"
-              href="https://api.whatsapp.com/send?phone=919425260042&text=Hello, I want to enquire for the service"
-              target="_blank"
-              rel="noopener noreferrer"
-              size="md"
-              radius="md"
-              className="flex px-6"
-            >
-              Chat With Us →
-            </GradientButton>
+          <div className="lg:hidden mt-4 pb-4 space-y-2">
+            <NavigationMenu isMobile />
           </div>
         )}
       </div>
