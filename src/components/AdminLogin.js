@@ -1,41 +1,45 @@
+// app/admin-login/page.jsx
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Button, Input } from "@heroui/react";
-import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
-import { MdSecurity } from "react-icons/md";
+import { FaLock } from "react-icons/fa";
+import { FiMail, FiLock } from "react-icons/fi";
 import Copyright from "@/components/Copyright";
 import AlertBox from "@/components/AlertBox";
 import Loading from "@/components/Loading";
 import CustomInput from "@/components/CustomInput";
-import { FiMail } from "react-icons/fi";
-import { FiLock } from "react-icons/fi";
-import LoadingButton from "./LoadingButton";
+import LoadingButton from "@/components/LoadingButton";
 
 const initialFormData = {
   email: "",
   password: "",
 };
 
-export default function AdminLogin({ session }) {
-  const { status } = useSession();
+export default function AdminLogin() {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertProps, setAlertProps] = useState(null);
   const [formData, setFormData] = useState(initialFormData);
   const [isLogging, setIsLogging] = useState(false);
 
+  // Redirect if already logged in as admin
+  useEffect(() => {
+    if (status === "authenticated" && session?.user?.role === "admin") {
+      router.push("/admin-dashboard");
+    }
+  }, [status, session, router]);
+
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setIsLogging(true);
 
     try {
-      const result = await signIn("credentials", {
+      const result = await signIn("admin-credentials", {
         email: formData.email,
         password: formData.password,
         redirect: false,
-        callbackUrl: "/admin-dashboard",
       });
 
       if (result?.error || result?.status === 401) {
@@ -124,21 +128,29 @@ export default function AdminLogin({ session }) {
 
           {/* Submit Button */}
           <div className="pt-4">
-            <div className="pt-4">
-              <LoadingButton
-                type="submit"
-                fullWidth={true}
-                size="lg"
-                isLoading={isLogging}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 
+            <LoadingButton
+              type="submit"
+              fullWidth={true}
+              size="lg"
+              isLoading={isLogging}
+              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 
                     text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 
                     h-[52px] flex items-center justify-center"
-              >
-                Login to Dashboard!
-              </LoadingButton>
-            </div>
+            >
+              Login to Dashboard
+            </LoadingButton>
           </div>
         </form>
+
+        {/* Back to Home */}
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => router.push("/")}
+            className="text-sm text-slate-400 hover:text-white transition-colors"
+          >
+            ← Back to Home
+          </button>
+        </div>
       </div>
 
       {/* Footer */}
