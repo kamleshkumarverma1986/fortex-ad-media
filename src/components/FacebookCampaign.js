@@ -1,9 +1,11 @@
 "use client";
 
-import { Button } from "@heroui/react";
+import { useRouter } from "next/navigation";
 import GradientButton from "./GradientButton";
+import ResponsiveImage from "./ResponsiveImage";
 
 export default function FacebookCampaign() {
+  const router = useRouter();
   return (
     <section className="py-20 bg-[#1a1a1a]">
       <div className="max-w-7xl mx-auto px-6">
@@ -17,14 +19,24 @@ export default function FacebookCampaign() {
               We create data-driven Facebook ad campaigns tailored to your
               business goals, ensuring maximum reach and engagement. Learn more!
             </p>
-            <GradientButton>Get Started</GradientButton>
+            <GradientButton
+              onPress={() => {
+                router.push("/pricing");
+              }}
+            >
+              Get Started
+            </GradientButton>
           </div>
 
           {/* Right - Meta Logo Visual */}
           <div className="relative">
-            <div className="bg-gradient-to-br from-blue-400 to-purple-600 rounded-3xl p-12 h-[400px] flex items-center justify-center">
-              <div className="text-white text-8xl font-bold">∞</div>
-            </div>
+            <ResponsiveImage
+              src="/images/all-social-medias.jpeg"
+              alt="all-social-media"
+              fill
+              className="w-full h-96"
+              rounded="lg"
+            />
           </div>
         </div>
       </div>

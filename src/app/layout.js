@@ -7,26 +7,26 @@ import FloatingChatButton from "@/components/FloatingChatButton";
 
 export const metadata = {
   title:
-    "Forex AD Media - Strategic Advertising for Offline Stores | Business Growth Solutions",
+    "Fortex AD Media - Strategic Advertising for Offline Stores | Business Growth Solutions",
   description:
-    "Empower your offline store with Forex AD Media's strategic advertising campaigns. We help businesses attract more customers and boost sales through targeted ad solutions across multiple channels. Expert partner in driving real results for offline retail stores.",
+    "Empower your offline store with Fortex AD Media's strategic advertising campaigns. We help businesses attract more customers and boost sales through targeted ad solutions across multiple channels. Expert partner in driving real results for offline retail stores.",
   keywords:
     "offline store advertising, business growth advertising, retail marketing, targeted ad campaigns, offline business promotion, store advertising solutions, retail advertising agency",
-  authors: [{ name: "Forex AD Media" }],
-  creator: "Forex AD Media",
-  publisher: "Forex AD Media",
+  authors: [{ name: "Fortex AD Media" }],
+  creator: "Fortex AD Media",
+  publisher: "Fortex AD Media",
   openGraph: {
-    title: "Forex AD Media - Strategic Advertising for Offline Stores",
+    title: "Fortex AD Media - Strategic Advertising for Offline Stores",
     description:
       "Specialized advertising solutions that help offline stores attract customers and increase sales through creative, targeted campaigns.",
     type: "website",
     locale: "en_US",
-    siteName: "Forex AD Media",
+    siteName: "Fortex AD Media",
     url: "https://www.fortex.co.in/",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Forex AD Media - Strategic Advertising for Offline Stores",
+    title: "Fortex AD Media - Strategic Advertising for Offline Stores",
     description:
       "Empowering offline businesses with strategic advertising campaigns that drive real results and business growth.",
   },

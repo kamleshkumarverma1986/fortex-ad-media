@@ -29,20 +29,6 @@ export function PremiumCard({ children, className = "" }) {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      const rotateX = Math.max(
-        -12,
-        Math.min(12, ((targetY - centerY) / 20) * -1)
-      );
-      const rotateY = Math.max(-12, Math.min(12, (targetX - centerX) / 20));
-
-      card.style.transform = `
-        perspective(1200px)
-        rotateX(${rotateX}deg)
-        rotateY(${rotateY}deg)
-        scale3d(1.02, 1.02, 1.02)
-        translateZ(10px)
-      `;
-
       // Animate border gradient position
       const angle =
         Math.atan2(targetY - centerY, targetX - centerX) * (180 / Math.PI);
@@ -56,15 +42,17 @@ export function PremiumCard({ children, className = "" }) {
 
     const handleMouseEnter = () => {
       setIsHovered(true);
-      card.style.transition = "transform 0.15s ease-out";
+      // Subtle lift on hover
+      card.style.transition =
+        "transform 0.3s ease-out, box-shadow 0.3s ease-out";
+      card.style.transform = "translateY(-8px) scale(1.02)";
     };
 
     const handleMouseLeave = () => {
       setIsHovered(false);
       card.style.transition =
-        "transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)";
-      card.style.transform =
-        "perspective(1200px) rotateX(0) rotateY(0) scale3d(1, 1, 1) translateZ(0)";
+        "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease-out";
+      card.style.transform = "translateY(0) scale(1)";
       glow.style.opacity = "0";
     };
 
@@ -86,7 +74,6 @@ export function PremiumCard({ children, className = "" }) {
           `;
         }
       }
-
       animationFrameRef.current = requestAnimationFrame(animate);
     };
 
@@ -133,7 +120,6 @@ export function PremiumCard({ children, className = "" }) {
           ${className}
         `}
         style={{
-          transformStyle: "preserve-3d",
           willChange: "transform",
         }}
       >
@@ -159,13 +145,8 @@ export function PremiumCard({ children, className = "" }) {
           style={{ zIndex: 2 }}
         />
 
-        {/* Content with depth */}
-        <div
-          className="relative z-10"
-          style={{ transform: "translateZ(20px)" }}
-        >
-          {children}
-        </div>
+        {/* Content */}
+        <div className="relative z-10">{children}</div>
 
         {/* Corner accents */}
         <div

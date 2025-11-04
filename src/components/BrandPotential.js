@@ -1,5 +1,7 @@
 "use client";
 
+import ResponsiveImage from "./ResponsiveImage";
+
 export default function BrandPotential() {
   return (
     <section className="py-20 bg-[#1a1a1a]">
@@ -7,9 +9,13 @@ export default function BrandPotential() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left - Social Media Icons Visual */}
           <div className="relative">
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-12 h-[400px] flex items-center justify-center">
-              <div className="text-white text-6xl">📱</div>
-            </div>
+            <ResponsiveImage
+              src="/images/strategic-ads.jpeg"
+              alt="Strategic Advertising"
+              fill
+              className="w-full h-96"
+              rounded="lg"
+            />
           </div>
 
           {/* Right - Content */}

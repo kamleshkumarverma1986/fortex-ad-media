@@ -1,18 +1,24 @@
 "use client";
 
-import { Button } from "@heroui/react";
+import { useRouter } from "next/navigation";
 import GradientButton from "./GradientButton";
+import ResponsiveImage from "./ResponsiveImage";
 
 export default function InstagramManagement() {
+  const router = useRouter();
   return (
     <section className="py-20 bg-[#0F172A]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left - Image */}
           <div className="relative">
-            <div className="bg-gradient-to-br from-gray-700 to-gray-900 rounded-3xl h-[400px] flex items-center justify-center overflow-hidden">
-              <div className="text-white text-6xl">📱</div>
-            </div>
+            <ResponsiveImage
+              src="/images/insta-asset.jpeg"
+              alt="Ads on instagram"
+              fill
+              className="w-full h-96"
+              rounded="lg"
+            />
           </div>
 
           {/* Right - Content */}
@@ -25,7 +31,13 @@ export default function InstagramManagement() {
               your brand&apos;s essence and engage your target audience
               effectively. Inquire now!
             </p>
-            <GradientButton>Get Started</GradientButton>
+            <GradientButton
+              onPress={() => {
+                router.push("/pricing");
+              }}
+            >
+              Get Started
+            </GradientButton>
           </div>
         </div>
       </div>
