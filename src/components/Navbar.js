@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@heroui/react";
 import { useRouter, usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RiMenuLine, RiCloseLargeLine } from "react-icons/ri";
 import { useSession, signOut } from "next-auth/react";
 import LoadingButton from "./LoadingButton";
@@ -39,10 +39,27 @@ const NavigationMenu = ({ menuItems, onPress, isMobile = false }) => (
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const { data: session, status } = useSession();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  // Modern scroll handler - shrink navbar on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 20;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrolled]);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -63,18 +80,15 @@ export default function Navbar() {
 
   const handlePress = async () => {
     if (status === "authenticated") {
-      // Handle logout
       try {
         setIsLoggingOut(true);
         const callbackUrl = session?.user?.isAdmin ? "/admin-login" : "/";
         await signOut({ callbackUrl });
-        // Don't set isLoggingOut to false here - component will unmount on redirect
       } catch (error) {
         console.error("Logout error:", error);
-        setIsLoggingOut(false); // Only reset on error
+        setIsLoggingOut(false);
       }
     } else {
-      // Handle login - open modal for normal users
       setIsLoginModalOpen(true);
     }
   };
@@ -87,33 +101,42 @@ export default function Navbar() {
     }
   };
 
-  // Get button text - only show when status is resolved
   const getButtonText = () => {
     if (status === "loading") return "";
     return status === "authenticated" ? "Logout" : "Login";
   };
 
-  // Get dashboard button text - only show when authenticated
   const getDashboardText = () => {
     if (status === "loading") return "";
     return status === "authenticated" ? "Dashboard" : "";
   };
 
-  // Check if we're on the home page (only show menu on home page)
   const isHomePage = pathname === "/";
-
-  // Check if we're on the admin-login page
   const isAdminLoginPage = pathname === "/admin-login";
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 bg-[#0F172A]/80 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <nav
+        className={`fixed top-0 w-full z-50 transition-all duration-500 ease-out ${
+          scrolled
+            ? "bg-[#0F172A]/95 backdrop-blur-xl shadow-lg shadow-black/20"
+            : "bg-[#0F172A]/60 backdrop-blur-md"
+        }`}
+      >
+        <div
+          className="max-w-7xl mx-auto px-6 transition-all duration-500 ease-out"
+          style={{
+            paddingTop: scrolled ? "12px" : "16px",
+            paddingBottom: scrolled ? "12px" : "16px",
+          }}
+        >
           <div className="flex items-center justify-between">
-            {/* Logo */}
+            {/* Logo with scale animation */}
             <button
               onClick={() => router.push("/")}
-              className="text-white text-xl font-bold cursor-pointer whitespace-nowrap"
+              className={`text-white font-bold cursor-pointer whitespace-nowrap transition-all duration-500 ease-out ${
+                scrolled ? "text-lg" : "text-xl"
+              }`}
             >
               Fortex Ad Media
             </button>
@@ -128,25 +151,27 @@ export default function Navbar() {
               </div>
             )}
 
-            {/* Right Buttons - Fixed width container to prevent layout shift */}
+            {/* Right Buttons */}
             <div className="flex items-center gap-2 lg:gap-3 min-w-[150px] lg:min-w-[235px] justify-end">
-              {/* Dashboard Button - Using LoadingButton pattern for consistency */}
               <LoadingButton
                 variant="light"
-                className="bg-transparent hover:bg-white/10 text-gray-400 font-medium transition-all duration-200 
-                      min-w-[80px] lg:min-w-[100px] h-[36px] p-1"
+                className={`bg-transparent hover:bg-white/10 text-gray-400 font-medium transition-all duration-500
+                      min-w-[80px] lg:min-w-[100px] p-1 ${
+                        scrolled ? "h-[32px]" : "h-[36px]"
+                      }`}
                 onPress={handleDashboardClick}
                 isDisabled={status !== "authenticated"}
               >
                 {getDashboardText()}
               </LoadingButton>
 
-              {/* Login/Logout Button - Hidden on admin-login page */}
               {!isAdminLoginPage && (
                 <LoadingButton
                   variant="light"
-                  className="bg-transparent hover:bg-white/10 text-gray-400 font-medium transition-all duration-200 
-                        min-w-[60px] lg:min-w-[85px] h-[36px] p-1"
+                  className={`bg-transparent hover:bg-white/10 text-gray-400 font-medium transition-all duration-500
+                        min-w-[60px] lg:min-w-[85px] p-1 ${
+                          scrolled ? "h-[32px]" : "h-[36px]"
+                        }`}
                   onPress={handlePress}
                   isLoading={isLoggingOut}
                   isDisabled={status === "loading"}
@@ -155,11 +180,12 @@ export default function Navbar() {
                 </LoadingButton>
               )}
 
-              {/* Mobile Menu Button - Only visible on home page */}
               {isHomePage && (
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="lg:hidden text-white text-3xl ml-1"
+                  className={`lg:hidden text-white ml-1 transition-all duration-500 ${
+                    scrolled ? "text-2xl" : "text-3xl"
+                  }`}
                 >
                   {isMobileMenuOpen ? <RiCloseLargeLine /> : <RiMenuLine />}
                 </button>
@@ -167,20 +193,41 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile Menu - Only visible on home page */}
-          {isHomePage && isMobileMenuOpen && (
-            <div className="lg:hidden mt-4 pb-4 space-y-2">
-              <NavigationMenu
-                menuItems={menuItems}
-                onPress={scrollToSection}
-                isMobile
-              />
+          {/* Mobile Menu with animations */}
+          <div
+            className={`lg:hidden overflow-hidden transition-all duration-500 ease-out ${
+              isMobileMenuOpen
+                ? "max-h-[400px] opacity-100 mt-4"
+                : "max-h-0 opacity-0 mt-0"
+            }`}
+          >
+            <div
+              className={`pb-4 space-y-2 transition-all duration-500 ease-out ${
+                isMobileMenuOpen ? "translate-y-0" : "-translate-y-4"
+              }`}
+            >
+              {menuItems.map((item, index) => (
+                <div
+                  key={item.id}
+                  className={`transition-all duration-500 ease-out ${
+                    isMobileMenuOpen
+                      ? "opacity-100 translate-x-0"
+                      : "opacity-0 -translate-x-8"
+                  }`}
+                  style={{
+                    transitionDelay: isMobileMenuOpen
+                      ? `${index * 50}ms`
+                      : "0ms",
+                  }}
+                >
+                  <MenuItem item={item} onPress={scrollToSection} isMobile />
+                </div>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       </nav>
 
-      {/* Login Modal for Normal Users */}
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}

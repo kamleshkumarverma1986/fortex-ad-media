@@ -20,8 +20,20 @@ export default function HeroSection() {
         <div className="max-w-7xl mx-auto px-6 w-full">
           {/* Hero Content */}
           <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-              Grow With US
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
+              <span className="relative inline-block group">
+                {/* Soft animated glow */}
+                <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></span>
+                {/* Main text with subtle gradient */}
+                <span
+                  className="relative bg-gradient-to-b from-white to-white/80 bg-clip-text text-transparent font-extrabold transition-all duration-700 group-hover:from-white group-hover:to-white/90"
+                  style={{
+                    filter: "drop-shadow(0 4px 12px rgba(255, 255, 255, 0.15))",
+                  }}
+                >
+                  Grow With US
+                </span>
+              </span>
             </h1>
             <p className="text-xl text-white/70 mb-10">
               Let&apos;s elevate your brand! In your Local area and Globally.
