@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function Copyright() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -8,12 +10,13 @@ export default function Copyright() {
   return (
     <p className="text-sm text-gray-400 text-center">
       {`© Copyright ${new Date().getFullYear()} `}
-      <button
-        onClick={scrollToTop}
+      <Link
+        href="privacy-policy"
+        target="_blank"
         className="text-blue-400 hover:text-blue-300 font-medium transition-colors hover:underline"
       >
         Fortex Ad Media
-      </button>
+      </Link>
       . All Rights Reserved
     </p>
   );

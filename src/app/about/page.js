@@ -1,0 +1,9 @@
+import TeamSection from "@/components/TeamSection";
+
+export const metadata = {
+  title: "Forex AD Media - About Us",
+};
+
+export default async function ServerAbout() {
+  return <TeamSection />;
+}

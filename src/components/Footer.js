@@ -41,18 +41,21 @@ export default function Footer() {
             <div className="space-y-3">
               <Link
                 href="/about"
+                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 About
               </Link>
               <Link
                 href="/services"
+                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Service
               </Link>
               <Link
                 href="/contact"
+                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Contact
@@ -65,19 +68,22 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">HELP</h4>
             <div className="space-y-3">
               <Link
-                href="/support"
+                href="https://api.whatsapp.com/send?phone=919425260042&text=Hello, I want to enquire for the service"
+                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Support
               </Link>
               <Link
-                href="/terms"
+                href="/terms-of-service"
+                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Terms & Conditions
               </Link>
               <Link
-                href="/privacy"
+                href="/privacy-policy"
+                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Privacy Policy

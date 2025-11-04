@@ -62,6 +62,11 @@ export const authOptions = {
     }),
   ],
 
+  pages: {
+    signIn: "/", // Default sign-in page (will be overridden by redirect callback)
+    error: "/", // Default error page (will be overridden by redirect callback)
+  },
+
   callbacks: {
     async signIn({ user, account }) {
       // For social login (normal users)
@@ -87,6 +92,33 @@ export const authOptions = {
 
       // For admin credentials login
       return true;
+    },
+
+    async redirect({ url, baseUrl }) {
+      // Handle error redirects
+      if (url.includes("/api/auth/error")) {
+        const urlObj = new URL(url);
+        const error = urlObj.searchParams.get("error");
+
+        // If it's a credentials error (admin login failed)
+        if (error === "CredentialsSignin") {
+          return `${baseUrl}/admin-login?error=invalid-credentials`;
+        }
+
+        // For OAuth errors (Callback, OAuthSignin, OAuthCallback, etc.)
+        // Redirect to home page without exposing admin-login
+        return baseUrl; // "/"
+      }
+
+      // Handle callback URL from admin login
+      if (url.includes("/admin-login")) {
+        return url;
+      }
+
+      // Default redirect behavior
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
     },
 
     async jwt({ token, user }) {
@@ -136,10 +168,6 @@ export const authOptions = {
       }
       return session;
     },
-  },
-
-  pages: {
-    signIn: "/admin-login", // Admin sign-in page
   },
 };
 

@@ -1,8 +1,7 @@
-// app/admin-login/page.jsx
 "use client";
 import { useState, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FaLock } from "react-icons/fa";
 import { FiMail, FiLock } from "react-icons/fi";
 import Copyright from "@/components/Copyright";
@@ -19,14 +18,33 @@ const initialFormData = {
 export default function AdminLogin() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [alertProps, setAlertProps] = useState(null);
+  const searchParams = useSearchParams();
+  const urlError = searchParams.get("error");
+
+  const [isAlertOpen, setIsAlertOpen] = useState(
+    urlError === "invalid-credentials"
+  );
+  const [alertProps, setAlertProps] = useState(
+    urlError === "invalid-credentials"
+      ? {
+          isSuccess: false,
+          message: "Invalid email or password. Please try again.",
+        }
+      : null
+  );
   const [formData, setFormData] = useState(initialFormData);
   const [isLogging, setIsLogging] = useState(false);
 
+  // Clean up URL error parameter after showing it
+  useEffect(() => {
+    if (urlError === "invalid-credentials") {
+      window.history.replaceState({}, "", "/admin-login");
+    }
+  }, [urlError]);
+
   // Redirect if already logged in as admin
   useEffect(() => {
-    if (status === "authenticated" && session?.user?.role === "admin") {
+    if (status === "authenticated" && session?.user?.isAdmin) {
       router.push("/admin-dashboard");
     }
   }, [status, session, router]);

@@ -8,6 +8,7 @@ export default function LoadingButton({
   className = "",
   loadingText = "",
   spinnerSize = "text-lg",
+  spinnerColor = "text-white",
   showChildrenWhileLoading = false,
   ...props
 }) {
@@ -24,7 +25,7 @@ export default function LoadingButton({
         {isLoading && (
           <FaSpinner
             className={`animate-spin ${spinnerSize} ${
-              showChildrenWhileLoading || !hasContent ? "" : "text-white"
+              showChildrenWhileLoading || !hasContent ? "" : spinnerColor
             }`}
           />
         )}
