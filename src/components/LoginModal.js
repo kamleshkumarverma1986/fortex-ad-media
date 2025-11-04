@@ -30,9 +30,7 @@ export default function LoginModal({ isOpen, onClose }) {
 
   const handleNavigate = (path) => {
     onClose(); // close modal first
-    setTimeout(() => {
-      router.push(path); // then navigate smoothly
-    }, 250); // small delay for modal close animation
+    router.push(path);
   };
 
   return (

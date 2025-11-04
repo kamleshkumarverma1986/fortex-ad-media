@@ -22,6 +22,20 @@ const MenuItem = ({ item, onPress, isMobile = false }) => (
   </Button>
 );
 
+// Navigation Menu Component - only menu items
+const NavigationMenu = ({ menuItems, onPress, isMobile = false }) => (
+  <>
+    {menuItems.map((item) => (
+      <MenuItem
+        key={item.id}
+        item={item}
+        onPress={onPress}
+        isMobile={isMobile}
+      />
+    ))}
+  </>
+);
+
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -54,10 +68,10 @@ export default function Navbar() {
         setIsLoggingOut(true);
         const callbackUrl = session?.user?.isAdmin ? "/admin-login" : "/";
         await signOut({ callbackUrl });
+        // Don't set isLoggingOut to false here - component will unmount on redirect
       } catch (error) {
         console.error("Logout error:", error);
-      } finally {
-        setIsLoggingOut(false);
+        setIsLoggingOut(false); // Only reset on error
       }
     } else {
       // Handle login - open modal for normal users
@@ -88,19 +102,8 @@ export default function Navbar() {
   // Check if we're on the home page (only show menu on home page)
   const isHomePage = pathname === "/";
 
-  // Navigation Menu Component - only menu items
-  const NavigationMenu = ({ isMobile = false }) => (
-    <>
-      {menuItems.map((item) => (
-        <MenuItem
-          key={item.id}
-          item={item}
-          onPress={scrollToSection}
-          isMobile={isMobile}
-        />
-      ))}
-    </>
-  );
+  // Check if we're on the admin-login page
+  const isAdminLoginPage = pathname === "/admin-login";
 
   return (
     <>
@@ -118,7 +121,10 @@ export default function Navbar() {
             {/* Desktop Navigation - Only visible on home page */}
             {isHomePage && (
               <div className="hidden lg:flex items-center gap-8">
-                <NavigationMenu />
+                <NavigationMenu
+                  menuItems={menuItems}
+                  onPress={scrollToSection}
+                />
               </div>
             )}
 
@@ -127,24 +133,27 @@ export default function Navbar() {
               {/* Dashboard Button - Using LoadingButton pattern for consistency */}
               <LoadingButton
                 variant="light"
-                className="bg-transparent hover:bg-white/10 text-white font-medium transition-all duration-200 
-                      min-w-[80px] lg:min-w-[100px] h-[36px] lg:h-[42px] text-xs lg:text-sm px-2 lg:px-4"
+                className="bg-transparent hover:bg-white/10 text-gray-400 font-medium transition-all duration-200 
+                      min-w-[80px] lg:min-w-[100px] h-[36px] p-1"
                 onPress={handleDashboardClick}
                 isDisabled={status !== "authenticated"}
               >
                 {getDashboardText()}
               </LoadingButton>
 
-              <LoadingButton
-                variant="light"
-                className="bg-transparent hover:bg-white/10 text-white font-medium transition-all duration-200 
-                      min-w-[60px] lg:min-w-[85px] h-[36px] lg:h-[42px] text-xs lg:text-sm px-2 lg:px-4"
-                onPress={handlePress}
-                isLoading={isLoggingOut}
-                isDisabled={status === "loading"}
-              >
-                {getButtonText()}
-              </LoadingButton>
+              {/* Login/Logout Button - Hidden on admin-login page */}
+              {!isAdminLoginPage && (
+                <LoadingButton
+                  variant="light"
+                  className="bg-transparent hover:bg-white/10 text-gray-400 font-medium transition-all duration-200 
+                        min-w-[60px] lg:min-w-[85px] h-[36px] p-1"
+                  onPress={handlePress}
+                  isLoading={isLoggingOut}
+                  isDisabled={status === "loading"}
+                >
+                  {getButtonText()}
+                </LoadingButton>
+              )}
 
               {/* Mobile Menu Button - Only visible on home page */}
               {isHomePage && (
@@ -161,7 +170,11 @@ export default function Navbar() {
           {/* Mobile Menu - Only visible on home page */}
           {isHomePage && isMobileMenuOpen && (
             <div className="lg:hidden mt-4 pb-4 space-y-2">
-              <NavigationMenu isMobile />
+              <NavigationMenu
+                menuItems={menuItems}
+                onPress={scrollToSection}
+                isMobile
+              />
             </div>
           )}
         </div>
