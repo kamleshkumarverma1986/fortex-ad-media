@@ -17,7 +17,7 @@ export default function BrandAmplifier() {
               rounded="lg"
               overlay={
                 <div>
-                  <h1 className="text-4xl font-bold mb-4">
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
                     Amplify Your Brand
                   </h1>
                 </div>
@@ -26,7 +26,7 @@ export default function BrandAmplifier() {
           </TiltCard>
           {/* Right - Content */}
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6 leading-tight text-center max-w-4xl mx-auto">
               Fortex AD Media: Your partner in crafting compelling Facebook and
               Instagram ad campaigns that drive growth and engagement.
             </h2>

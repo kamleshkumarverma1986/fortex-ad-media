@@ -12,7 +12,7 @@ export default function FacebookCampaign() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left - Content */}
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6">
               Strategic Facebook Ad Campaigns for Maximum Impact
             </h2>
             <p className="text-lg text-white/70 mb-8">

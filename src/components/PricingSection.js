@@ -51,7 +51,7 @@ export default function PricingSection() {
   return (
     <section id="pricing" className="py-20 bg-[#001a4d]">
       <div className="max-w-6xl mx-auto px-6 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
           Pricing Plans
         </h2>
         <p className="text-lg text-white/70 mb-16 max-w-2xl mx-auto">
@@ -76,8 +76,12 @@ export default function PricingSection() {
                   </div>
                 )}
 
-                <h3 className="text-3xl font-bold mb-2">{plan.title}</h3>
-                <p className="text-4xl font-bold mb-2">{plan.price}</p>
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
+                  {plan.title}
+                </h3>
+                <p className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
+                  {plan.price}
+                </p>
                 <p className="text-sm text-white/60 mb-6">{plan.duration}</p>
 
                 <ul className="text-white/80 space-y-2 text-left mb-8 max-w-xs mx-auto">

@@ -27,7 +27,7 @@ export default function TeamSection() {
   return (
     <section id="about" className="py-20 bg-[#001a4d]">
       <div className="max-w-6xl mx-auto px-6 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
           Meet Our Experts
         </h2>
         <p className="text-lg text-white/70 mb-16 max-w-2xl mx-auto">
@@ -48,7 +48,7 @@ export default function TeamSection() {
                     rounded="lg"
                     overlay={
                       <div>
-                        <h1 className="text-4xl font-bold mb-4">
+                        <h1 className="text-xl md:text-3xl font-bold mb-4">
                           {member.name}
                         </h1>
                         <h4>{member.role}</h4>

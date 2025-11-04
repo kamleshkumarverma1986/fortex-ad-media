@@ -20,7 +20,7 @@ export default function HeroSection() {
         <div className="max-w-7xl mx-auto px-6 w-full">
           {/* Hero Content */}
           <div className="text-center mb-16">
-            <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
               Grow With US
             </h1>
             <p className="text-xl text-white/70 mb-10">

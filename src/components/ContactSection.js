@@ -9,7 +9,7 @@ export default function ContactSection() {
         <div className="grid md:grid-cols-2 gap-12">
           {/* Left - Content */}
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
               Connect With Our Ad Experts Today
             </h2>
             <p className="text-lg text-white/70 mb-12">
