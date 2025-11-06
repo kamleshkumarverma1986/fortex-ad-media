@@ -94,21 +94,24 @@ export default function Footer() {
           {/* Column 4 - Newsletter */}
           <div>
             <h4 className="text-white font-semibold mb-4">
-              SUBSCRIBE TO NEWSLETTER
+              Return Policy And More
             </h4>
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              variant="bordered"
-              className="mb-4"
-              classNames={{
-                input: "text-white",
-                inputWrapper: "border-white/30",
-              }}
-            />
-            <Button className="w-full bg-sky-700 hover:bg-sky-800 text-white">
-              Subscribe
-            </Button>
+            <div className="space-y-3">
+              <Link
+                href="/return-and-refund-policy"
+                target="_blank"
+                className="block text-white/70 hover:text-white transition"
+              >
+                Return & Refund Policy
+              </Link>
+              <Link
+                href="/learn-more"
+                target="_blank"
+                className="block text-white/70 hover:text-white transition"
+              >
+                Learn More
+              </Link>
+            </div>
           </div>
         </div>
 
