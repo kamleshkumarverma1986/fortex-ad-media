@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@heroui/react";
+import { Button } from "@nextui-org/react";
 import GradientButton from "./GradientButton";
 import ResponsiveImage from "./ResponsiveImage";
 import { useRouter } from "next/navigation";

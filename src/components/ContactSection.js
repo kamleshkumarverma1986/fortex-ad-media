@@ -1,9 +1,10 @@
 "use client";
 
-import { Input, Textarea } from "@heroui/react";
 import { useState } from "react";
 import AlertBox from "@/components/AlertBox";
 import LoadingButton from "@/components/LoadingButton";
+import CustomInput from "./CustomInput";
+import CustomTextarea from "./CustomTextarea";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -186,19 +187,13 @@ export default function ContactSection() {
             <form className="space-y-6" onSubmit={handleSubmit}>
               {/* Full Name */}
               <div>
-                <Input
+                <CustomInput
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter your full Name"
                   variant="bordered"
                   isInvalid={!!errors.name}
-                  classNames={{
-                    input:
-                      "text-white placeholder:text-white/50 focus:outline-none appearance-none bg-transparent",
-                    inputWrapper:
-                      "bg-transparent border border-white/30 transition-colors rounded-md px-2 py-1 focus-within:border-white/60 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-0 data-[invalid=true]:border-red-500 data-[invalid=true]:focus-within:ring-red-500",
-                  }}
                 />
                 {errors.name && (
                   <p className="text-red-500 text-sm mt-1">{errors.name}</p>
@@ -207,7 +202,7 @@ export default function ContactSection() {
 
               {/* Email */}
               <div>
-                <Input
+                <CustomInput
                   type="email"
                   name="email"
                   value={formData.email}
@@ -215,12 +210,6 @@ export default function ContactSection() {
                   placeholder="John@example.com"
                   variant="bordered"
                   isInvalid={!!errors.email}
-                  classNames={{
-                    input:
-                      "text-white placeholder:text-white/50 focus:outline-none appearance-none bg-transparent",
-                    inputWrapper:
-                      "bg-transparent border border-white/30 transition-colors rounded-md px-2 py-1 focus-within:border-white/60 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-0 data-[invalid=true]:border-red-500 data-[invalid=true]:focus-within:ring-red-500",
-                  }}
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mt-1">{errors.email}</p>
@@ -229,7 +218,7 @@ export default function ContactSection() {
 
               {/* Phone Number */}
               <div>
-                <Input
+                <CustomInput
                   type="tel"
                   name="phoneNumber"
                   value={formData.phoneNumber}
@@ -238,12 +227,6 @@ export default function ContactSection() {
                   variant="bordered"
                   maxLength={10}
                   isInvalid={!!errors.phoneNumber}
-                  classNames={{
-                    input:
-                      "text-white placeholder:text-white/50 focus:outline-none appearance-none bg-transparent",
-                    inputWrapper:
-                      "bg-transparent border border-white/30 transition-colors rounded-md px-2 py-1 focus-within:border-white/60 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-0 data-[invalid=true]:border-red-500 data-[invalid=true]:focus-within:ring-red-500",
-                  }}
                 />
                 {errors.phoneNumber && (
                   <p className="text-red-500 text-sm mt-1">
@@ -254,7 +237,7 @@ export default function ContactSection() {
 
               {/* Short Business Details */}
               <div>
-                <Textarea
+                <CustomTextarea
                   name="businessDetails"
                   value={formData.businessDetails}
                   onChange={handleChange}
@@ -262,12 +245,6 @@ export default function ContactSection() {
                   variant="bordered"
                   minRows={4}
                   isInvalid={!!errors.businessDetails}
-                  classNames={{
-                    input:
-                      "text-white placeholder:text-white/50 focus:outline-none appearance-none bg-transparent",
-                    inputWrapper:
-                      "bg-transparent border border-white/30 transition-colors rounded-md px-2 py-2 focus-within:border-white/60 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-0 data-[invalid=true]:border-red-500 data-[invalid=true]:focus-within:ring-red-500",
-                  }}
                 />
                 {errors.businessDetails && (
                   <p className="text-red-500 text-sm mt-1">

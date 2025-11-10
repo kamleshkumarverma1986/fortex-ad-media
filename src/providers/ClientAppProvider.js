@@ -1,12 +1,12 @@
 "use client";
 
-import { HeroUIProvider } from "@heroui/react";
+import { NextUIProvider } from "@nextui-org/react";
 import { SessionProvider as AuthSessionProvider } from "next-auth/react";
 
 /* ClientAppProvider is for both HeroUI and Session */
 const ClientAppProvider = ({ children, session }) => (
   <AuthSessionProvider session={session}>
-    <HeroUIProvider>{children}</HeroUIProvider>
+    <NextUIProvider>{children}</NextUIProvider>
   </AuthSessionProvider>
 );
 

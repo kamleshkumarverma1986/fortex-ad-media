@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { Modal, ModalContent, ModalHeader, ModalBody } from "@heroui/react";
+import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import Link from "next/link";
 import { RiShieldCheckLine } from "react-icons/ri";

@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@heroui/react";
+import { Button } from "@nextui-org/react";
 import { useRouter, usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { RiMenuLine, RiCloseLargeLine } from "react-icons/ri";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Select, SelectItem } from "@heroui/react";
+import { Select, SelectItem } from "@nextui-org/react";
 
 const statusOptions = [
   { value: "PENDING", label: "Pending", color: "warning" },

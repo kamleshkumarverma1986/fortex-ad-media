@@ -1,6 +1,5 @@
 "use client";
 
-import { Button, Input } from "@heroui/react";
 import Link from "next/link";
 import Copyright from "./Copyright";
 

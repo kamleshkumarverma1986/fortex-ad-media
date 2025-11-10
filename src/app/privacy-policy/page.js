@@ -1,5 +1,5 @@
 "use client";
-import { Card, CardBody, Button } from "@heroui/react";
+import { Card, CardBody, Button } from "@nextui-org/react";
 
 export default function PrivacyPolicy() {
   return (

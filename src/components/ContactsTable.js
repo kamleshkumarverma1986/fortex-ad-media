@@ -14,7 +14,7 @@ import {
   SelectItem,
   Card,
   CardBody,
-} from "@heroui/react";
+} from "@nextui-org/react";
 import StatusDropdown from "./StatusDropdown";
 import StatusBadge from "./StatusBadge";
 import {

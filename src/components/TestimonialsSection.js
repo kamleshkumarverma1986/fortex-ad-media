@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardBody } from "@heroui/react";
+import { Card, CardBody } from "@nextui-org/react";
 import { TiltCard } from "./TiltCard";
 
 export default function TestimonialsSection() {

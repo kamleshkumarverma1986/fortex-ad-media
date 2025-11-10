@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@heroui/react";
+import { Button } from "@nextui-org/react";
 import { FaSpinner } from "react-icons/fa";
 
 export default function LoadingButton({
