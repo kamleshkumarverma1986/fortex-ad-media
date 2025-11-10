@@ -16,7 +16,7 @@ export default async function ServerAdminDashboard() {
 
   // If no session exists (user is not logged in), redirect to login page
   if (!session) {
-    redirect("/admin-login");
+    redirect("/login-param");
   }
 
   // If user is not an admin, redirect to unauthorized page or home

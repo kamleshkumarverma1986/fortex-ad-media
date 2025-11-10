@@ -102,16 +102,16 @@ export const authOptions = {
 
         // If it's a credentials error (admin login failed)
         if (error === "CredentialsSignin") {
-          return `${baseUrl}/admin-login?error=invalid-credentials`;
+          return `${baseUrl}/login-param?error=invalid-credentials`;
         }
 
         // For OAuth errors (Callback, OAuthSignin, OAuthCallback, etc.)
-        // Redirect to home page without exposing admin-login
+        // Redirect to home page without exposing login-param
         return baseUrl; // "/"
       }
 
       // Handle callback URL from admin login
-      if (url.includes("/admin-login")) {
+      if (url.includes("/login-param")) {
         return url;
       }
 

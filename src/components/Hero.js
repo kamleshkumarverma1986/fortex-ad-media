@@ -79,7 +79,7 @@ export default function HeroSection() {
                   rounded="lg"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                <div className="absolute bottom-6 left-6 right-6">
+                <div className="absolute bottom-6 left-6 right-6 text-center">
                   <h3 className="text-white text-xl">
                     Expert Ad Campaign Management
                     <p>अपने व्यापार को दे नयी ऊंचाई FORTEX AD के साथ </p>
@@ -102,7 +102,7 @@ export default function HeroSection() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="text-white text-xl">
+                  <h3 className="text-white text-xl text-center">
                     Creative Ad Design Solutions
                     <p>
                       मात्र 299/- प्रतिदिन के बजट में पाएँ 100+ नए CUSTOMER,
@@ -127,7 +127,7 @@ export default function HeroSection() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="text-white text-xl">
+                  <h3 className="text-white text-xl text-center">
                     Data-Driven Optimization Strategies
                     <p>बिना टेंशन के Business को बड़ा बनायें </p>
                   </h3>

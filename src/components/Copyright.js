@@ -12,7 +12,6 @@ export default function Copyright() {
       {`© Copyright ${new Date().getFullYear()} `}
       <Link
         href="privacy-policy"
-        target="_blank"
         className="text-blue-400 hover:text-blue-300 font-medium transition-colors hover:underline"
       >
         Fortex Ad Media

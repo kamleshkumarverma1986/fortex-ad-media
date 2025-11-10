@@ -14,7 +14,7 @@ export async function middleware(request) {
   // Protect admin dashboard - redirect to login if NOT authenticated
   if (path.startsWith("/admin-dashboard")) {
     if (!token) {
-      const loginUrl = new URL("/admin-login", request.url);
+      const loginUrl = new URL("/login-param", request.url);
       return NextResponse.redirect(loginUrl);
     }
 
@@ -31,7 +31,7 @@ export async function middleware(request) {
   }
 
   // Protect login page - redirect to dashboard if ALREADY authenticated
-  if (path.startsWith("/admin-login")) {
+  if (path.startsWith("/login-param")) {
     if (token) {
       const dashboardUrl = new URL("/admin-dashboard", request.url);
       return NextResponse.redirect(dashboardUrl);
@@ -57,6 +57,6 @@ export async function middleware(request) {
 export const config = {
   matcher: [
     "/admin-dashboard/:path*", // Protects admin dashboard
-    "/admin-login", // Protects login page
+    "/login-param", // Protects login page
   ],
 };

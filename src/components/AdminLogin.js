@@ -38,7 +38,7 @@ export default function AdminLogin() {
   // Clean up URL error parameter after showing it
   useEffect(() => {
     if (urlError === "invalid-credentials") {
-      window.history.replaceState({}, "", "/admin-login");
+      window.history.replaceState({}, "", "/login-param");
     }
   }, [urlError]);
 

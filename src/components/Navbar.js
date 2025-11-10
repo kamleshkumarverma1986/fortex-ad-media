@@ -82,7 +82,7 @@ export default function Navbar() {
     if (status === "authenticated") {
       try {
         setIsLoggingOut(true);
-        const callbackUrl = session?.user?.isAdmin ? "/admin-login" : "/";
+        const callbackUrl = session?.user?.isAdmin ? "/login-param" : "/";
         await signOut({ callbackUrl });
       } catch (error) {
         console.error("Logout error:", error);
@@ -112,7 +112,7 @@ export default function Navbar() {
   };
 
   const isHomePage = pathname === "/";
-  const isAdminLoginPage = pathname === "/admin-login";
+  const isAdminLoginPage = pathname === "/login-param";
 
   return (
     <>

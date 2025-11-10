@@ -40,21 +40,18 @@ export default function Footer() {
             <div className="space-y-3">
               <Link
                 href="/about"
-                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 About
               </Link>
               <Link
                 href="/services"
-                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Service
               </Link>
               <Link
                 href="/contact"
-                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Contact
@@ -68,21 +65,18 @@ export default function Footer() {
             <div className="space-y-3">
               <Link
                 href="/terms-of-service"
-                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Terms & Conditions
               </Link>
               <Link
                 href="/privacy-policy"
-                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="/return-and-refund-policy"
-                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Return & Refund Policy
@@ -96,21 +90,18 @@ export default function Footer() {
             <div className="space-y-3">
               <Link
                 href="https://api.whatsapp.com/send?phone=+15558610964&text=👋 Hey, I want to know more about your service."
-                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Support
               </Link>
               <Link
                 href="/learn-more"
-                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Learn More
               </Link>
               <Link
                 href="/pricing"
-                target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Getting Started

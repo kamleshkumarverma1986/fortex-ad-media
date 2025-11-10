@@ -95,7 +95,6 @@ export default function PricingSection() {
 
                 <Button
                   color={plan.highlight ? "primary" : "default"}
-                  variant={plan.highlight ? "solid" : "bordered"}
                   className="font-semibold"
                 >
                   Get Started
