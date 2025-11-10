@@ -10,24 +10,10 @@ export async function POST(request) {
 
     // Parse request body
     const body = await request.json();
-    const {
-      fullName,
-      businessName,
-      email,
-      phoneNumber,
-      preferredDate,
-      businessDetails,
-    } = body;
+    const { name, email, phoneNumber, businessDetails } = body;
 
     // Validate required fields
-    if (
-      !fullName ||
-      !businessName ||
-      !email ||
-      !phoneNumber ||
-      !preferredDate ||
-      !businessDetails
-    ) {
+    if (!name || !email || !phoneNumber || !businessDetails) {
       return NextResponse.json(
         { error: "All fields are required" },
         { status: 400 }
@@ -47,11 +33,9 @@ export async function POST(request) {
 
     // Create new contact request
     const contactRequest = await ContactRequest.create({
-      fullName,
-      businessName,
+      name,
       email,
       phoneNumber,
-      preferredDate, // Store as string (YYYY-MM-DD format)
       businessDetails,
     });
 

@@ -34,9 +34,16 @@ export default function HeroSection() {
               </span>
             </span>
           </h1>
-          <p className="text-xl text-white/70 mb-10">
-            Let&apos;s elevate your brand! In your Local area and Globally.
-          </p>
+          <div className="mb-10">
+            <p className="text-xl text-white/70">
+              Claim your FREE 7 Days Trial today! Contact us via WhatsApp to
+              learn more.
+            </p>
+            <p className="text-xl text-white/70">&</p>
+            <p className="text-xl text-white/70">
+              Elevate your brand&apos;s presence, both locally and globally.
+            </p>
+          </div>
           <div className="flex gap-4 justify-center">
             <GradientButton
               onPress={() => {
@@ -73,8 +80,9 @@ export default function HeroSection() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="text-white text-xl font-semibold">
+                  <h3 className="text-white text-xl">
                     Expert Ad Campaign Management
+                    <p>अपने व्यापार को दे नयी ऊंचाई FORTEX AD के साथ </p>
                   </h3>
                 </div>
               </div>
@@ -94,8 +102,12 @@ export default function HeroSection() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="text-white text-xl font-semibold">
+                  <h3 className="text-white text-xl">
                     Creative Ad Design Solutions
+                    <p>
+                      मात्र 299/- प्रतिदिन के बजट में पाएँ 100+ नए CUSTOMER,
+                      Guarantied !!{" "}
+                    </p>
                   </h3>
                 </div>
               </div>
@@ -115,8 +127,9 @@ export default function HeroSection() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="text-white text-xl font-semibold">
+                  <h3 className="text-white text-xl">
                     Data-Driven Optimization Strategies
+                    <p>बिना टेंशन के Business को बड़ा बनायें </p>
                   </h3>
                 </div>
               </div>

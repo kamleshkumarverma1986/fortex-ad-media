@@ -12,12 +12,13 @@ export default function FacebookCampaign() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left - Content */}
           <div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6">
-              Strategic Facebook Ad Campaigns for Maximum Impact
+            <h2 className="text-2xl md:text-3xl lg:text-4xl text-white mb-6">
+              Effective Facebook Ads: Getting the Best Results
             </h2>
             <p className="text-lg text-white/70 mb-8">
-              We create data-driven Facebook ad campaigns tailored to your
-              business goals, ensuring maximum reach and engagement. Learn more!
+              We create Facebook ads that reach the right people. We use data to
+              find your perfect customers and get them interested in what you
+              sell. Learn more!
             </p>
             <GradientButton
               onPress={() => {

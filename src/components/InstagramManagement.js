@@ -23,13 +23,12 @@ export default function InstagramManagement() {
 
           {/* Right - Content */}
           <div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl text-white mb-6">
-              Instagram Ad Management for Visual Storytelling
+            <h2 className="text-2xl md:text-3xl lg:text-4xl text-white mb-6">
+              Using Instagram Ads to Share Your Story Visually
             </h2>
             <p className="text-lg text-white/70 mb-8">
-              We create visually stunning Instagram ad campaigns that capture
-              your brand&apos;s essence and engage your target audience
-              effectively. Inquire now!
+              We create engaging Instagram ads that highlight your brand and
+              connect with your target audience. Get in touch to discover how!
             </p>
             <GradientButton
               onPress={() => {

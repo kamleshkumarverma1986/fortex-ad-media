@@ -63,17 +63,10 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 3 - Help */}
+          {/* Column 3 - Policies & Terms */}
           <div>
-            <h4 className="text-white font-semibold mb-4">HELP</h4>
+            <h4 className="text-white font-semibold mb-4">Policies & Terms</h4>
             <div className="space-y-3">
-              <Link
-                href="https://api.whatsapp.com/send?phone=919425260042&text=Hello, I want to enquire for the service"
-                target="_blank"
-                className="block text-white/70 hover:text-white transition"
-              >
-                Support
-              </Link>
               <Link
                 href="/terms-of-service"
                 target="_blank"
@@ -88,15 +81,6 @@ export default function Footer() {
               >
                 Privacy Policy
               </Link>
-            </div>
-          </div>
-
-          {/* Column 4 - Newsletter */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">
-              Return Policy And More
-            </h4>
-            <div className="space-y-3">
               <Link
                 href="/return-and-refund-policy"
                 target="_blank"
@@ -104,12 +88,33 @@ export default function Footer() {
               >
                 Return & Refund Policy
               </Link>
+            </div>
+          </div>
+
+          {/* Column 4 - Help */}
+          <div>
+            <h4 className="text-white font-semibold mb-4">HELP</h4>
+            <div className="space-y-3">
+              <Link
+                href="https://api.whatsapp.com/send?phone=+15558610964&text=👋 Hey, I want to know more about your service."
+                target="_blank"
+                className="block text-white/70 hover:text-white transition"
+              >
+                Support
+              </Link>
               <Link
                 href="/learn-more"
                 target="_blank"
                 className="block text-white/70 hover:text-white transition"
               >
                 Learn More
+              </Link>
+              <Link
+                href="/pricing"
+                target="_blank"
+                className="block text-white/70 hover:text-white transition"
+              >
+                Getting Started
               </Link>
             </div>
           </div>

@@ -2,11 +2,7 @@ import { CONTACT_STATUSES, PENDING_CONTACT_STATUS } from "@/utils/helper";
 import { Schema, model, models } from "mongoose";
 
 const ContactRequestSchema = new Schema({
-  fullName: {
-    type: String,
-    required: true,
-  },
-  businessName: {
+  name: {
     type: String,
     required: true,
   },
@@ -16,10 +12,6 @@ const ContactRequestSchema = new Schema({
   },
   phoneNumber: {
     type: String,
-    required: true,
-  },
-  preferredDate: {
-    type: String, // Store as string in YYYY-MM-DD format
     required: true,
   },
   businessDetails: {

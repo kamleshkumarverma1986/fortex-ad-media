@@ -84,11 +84,9 @@ export default function ContactsTable() {
   };
 
   const columns = [
-    { key: "fullName", label: "Full Name", sortable: true },
-    { key: "businessName", label: "Business Name", sortable: true },
+    { key: "name", label: "Full Name", sortable: true },
     { key: "email", label: "Email", sortable: false },
     { key: "phoneNumber", label: "Phone", sortable: false },
-    { key: "preferredDate", label: "Preferred Date", sortable: true },
     { key: "status", label: "Status", sortable: true },
     { key: "created", label: "Submitted", sortable: true },
     { key: "actions", label: "Actions", sortable: false },
@@ -104,16 +102,12 @@ export default function ContactsTable() {
 
   const renderCell = (contact, columnKey) => {
     switch (columnKey) {
-      case "fullName":
-        return <div className="font-medium">{contact.fullName}</div>;
-      case "businessName":
-        return <div className="max-w-xs truncate">{contact.businessName}</div>;
+      case "name":
+        return <div className="font-medium">{contact.name}</div>;
       case "email":
         return <div className="text-sm">{contact.email}</div>;
       case "phoneNumber":
         return <div className="text-sm">{contact.phoneNumber}</div>;
-      case "preferredDate":
-        return <div className="text-sm">{contact.preferredDate}</div>;
       case "status":
         return <StatusBadge status={contact.status} />;
       case "created":

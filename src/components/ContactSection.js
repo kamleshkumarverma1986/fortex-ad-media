@@ -7,11 +7,9 @@ import LoadingButton from "@/components/LoadingButton";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
-    fullName: "",
-    businessName: "",
+    name: "",
     email: "",
     phoneNumber: "",
-    preferredDate: "",
     businessDetails: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -64,12 +62,8 @@ export default function ContactSection() {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.fullName.trim()) {
-      newErrors.fullName = "Full name is required";
-    }
-
-    if (!formData.businessName.trim()) {
-      newErrors.businessName = "Business name is required";
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
     }
 
     if (!formData.email.trim()) {
@@ -83,10 +77,6 @@ export default function ContactSection() {
     } else if (!validatePhoneNumber(formData.phoneNumber)) {
       newErrors.phoneNumber =
         "Please enter a valid 10-digit Indian phone number (starting with 6-9)";
-    }
-
-    if (!formData.preferredDate) {
-      newErrors.preferredDate = "Preferred date is required";
     }
 
     if (!formData.businessDetails.trim()) {
@@ -125,11 +115,9 @@ export default function ContactSection() {
           message: "Request submitted successfully!",
         });
         setFormData({
-          fullName: "",
-          businessName: "",
+          name: "",
           email: "",
           phoneNumber: "",
-          preferredDate: "",
           businessDetails: "",
         });
         setErrors({});
@@ -163,7 +151,7 @@ export default function ContactSection() {
         <div className="grid md:grid-cols-2 gap-12">
           {/* Left - Content */}
           <div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6">
               Connect With Our Ad Experts Today
             </h2>
             <p className="text-lg text-white/70 mb-12">
@@ -188,7 +176,7 @@ export default function ContactSection() {
 
           {/* Right - Form */}
           <div className="bg-[#0f0f0f] rounded-2xl p-8 border border-white/10 shadow-xl">
-            <h3 className="text-2xl font-bold text-white mb-2">
+            <h3 className="text-3xl font-bold text-white mb-2">
               Let&apos;s Discuss Your Needs
             </h3>
             <p className="text-white/70 mb-8">
@@ -199,12 +187,12 @@ export default function ContactSection() {
               {/* Full Name */}
               <div>
                 <Input
-                  name="fullName"
-                  value={formData.fullName}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter your full Name"
                   variant="bordered"
-                  isInvalid={!!errors.fullName}
+                  isInvalid={!!errors.name}
                   classNames={{
                     input:
                       "text-white placeholder:text-white/50 focus:outline-none appearance-none bg-transparent",
@@ -212,31 +200,8 @@ export default function ContactSection() {
                       "bg-transparent border border-white/30 transition-colors rounded-md px-2 py-1 focus-within:border-white/60 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-0 data-[invalid=true]:border-red-500 data-[invalid=true]:focus-within:ring-red-500",
                   }}
                 />
-                {errors.fullName && (
-                  <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
-                )}
-              </div>
-
-              {/* Business Name */}
-              <div>
-                <Input
-                  name="businessName"
-                  value={formData.businessName}
-                  onChange={handleChange}
-                  placeholder="Shop Specific details"
-                  variant="bordered"
-                  isInvalid={!!errors.businessName}
-                  classNames={{
-                    input:
-                      "text-white placeholder:text-white/50 focus:outline-none appearance-none bg-transparent",
-                    inputWrapper:
-                      "bg-transparent border border-white/30 transition-colors rounded-md px-2 py-1 focus-within:border-white/60 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-0 data-[invalid=true]:border-red-500 data-[invalid=true]:focus-within:ring-red-500",
-                  }}
-                />
-                {errors.businessName && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.businessName}
-                  </p>
+                {errors.name && (
+                  <p className="text-red-500 text-sm mt-1">{errors.name}</p>
                 )}
               </div>
 
@@ -283,31 +248,6 @@ export default function ContactSection() {
                 {errors.phoneNumber && (
                   <p className="text-red-500 text-sm mt-1">
                     {errors.phoneNumber}
-                  </p>
-                )}
-              </div>
-
-              {/* Preferred Date */}
-              <div>
-                <input
-                  type="date"
-                  name="preferredDate"
-                  value={formData.preferredDate}
-                  onChange={handleChange}
-                  className={`w-full bg-transparent border ${
-                    errors.preferredDate ? "border-red-500" : "border-white/30"
-                  } text-white placeholder:text-white/50 rounded-md px-3 py-2 focus:outline-none focus:border-white/60 focus:ring-2 ${
-                    errors.preferredDate
-                      ? "focus:ring-red-500"
-                      : "focus:ring-blue-500"
-                  } transition-colors`}
-                  style={{
-                    colorScheme: "dark",
-                  }}
-                />
-                {errors.preferredDate && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.preferredDate}
                   </p>
                 )}
               </div>
