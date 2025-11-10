@@ -11,6 +11,26 @@ export async function middleware(request) {
     secret: process.env.NEXTAUTH_SECRET,
   });
 
+  // Protect admin API routes - return 403 if not admin
+  if (path.startsWith("/api/admin")) {
+    if (!token) {
+      return NextResponse.json(
+        { error: "Unauthorized - Please login" },
+        { status: 401 }
+      );
+    }
+
+    if (!token.isAdmin) {
+      return NextResponse.json(
+        { error: "Forbidden - Admin access required" },
+        { status: 403 }
+      );
+    }
+
+    // User is admin, allow access
+    return NextResponse.next();
+  }
+
   // Protect admin dashboard - redirect to login if NOT authenticated
   if (path.startsWith("/admin-dashboard")) {
     if (!token) {
@@ -56,6 +76,7 @@ export async function middleware(request) {
 // Configure which routes this middleware should run on
 export const config = {
   matcher: [
+    "/api/admin/:path*", // Protects admin API routes
     "/admin-dashboard/:path*", // Protects admin dashboard
     "/login-param", // Protects login page
   ],

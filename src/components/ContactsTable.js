@@ -103,16 +103,18 @@ export default function ContactsTable() {
   const renderCell = (contact, columnKey) => {
     switch (columnKey) {
       case "name":
-        return <div className="font-medium">{contact.name}</div>;
+        return <div className="font-medium text-gray-100">{contact.name}</div>;
       case "email":
-        return <div className="text-sm">{contact.email}</div>;
+        return <div className="text-sm text-gray-300">{contact.email}</div>;
       case "phoneNumber":
-        return <div className="text-sm">{contact.phoneNumber}</div>;
+        return (
+          <div className="text-sm text-gray-300">{contact.phoneNumber}</div>
+        );
       case "status":
         return <StatusBadge status={contact.status} />;
       case "created":
         return (
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-gray-400">
             {formatDate(contact.created)}
           </div>
         );
@@ -130,15 +132,22 @@ export default function ContactsTable() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 p-6">
+    <div className="w-full min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6">
       <div className="max-w-[1600px] mx-auto space-y-6">
+        {/* Header */}
+        <div className="mb-8 mt-12">
+          <p className="text-gray-400">
+            Manage and track all customer inquiries
+          </p>
+        </div>
+
         {/* Filters Card */}
-        <Card className="border border-gray-200 shadow-lg bg-white">
-          <CardBody className="p-3">
+        <Card className="border border-gray-700/50 shadow-2xl bg-gray-800/50 backdrop-blur-xl">
+          <CardBody className="p-6">
             <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-end justify-between">
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-end flex-1 w-full">
                 <div className="w-full sm:w-64">
-                  <label className="block text-xs font-medium text-gray-700 mb-1">
+                  <label className="block text-xs font-medium text-gray-300 mb-2">
                     Status Filter
                   </label>
                   <Select
@@ -151,38 +160,38 @@ export default function ContactsTable() {
                     size="md"
                     classNames={{
                       trigger:
-                        "bg-white border-2 border-gray-300 hover:border-blue-500 transition-all duration-200 data-[hover=true]:bg-gray-50",
-                      value: "text-gray-900 font-medium",
-                      listbox: "bg-white",
+                        "bg-gray-700/50 border-2 border-gray-600 hover:border-blue-500 transition-all duration-200 data-[hover=true]:bg-gray-700",
+                      value: "text-gray-100 font-medium",
+                      listbox: "bg-gray-800",
                       popoverContent:
-                        "bg-white shadow-xl border border-gray-200",
+                        "bg-gray-800 shadow-xl border border-gray-700",
                     }}
                   >
                     <SelectItem
                       key="ALL"
                       value="ALL"
-                      className="bg-white hover:bg-blue-50"
+                      className="bg-gray-800 hover:bg-gray-700 text-gray-100"
                     >
                       All Status
                     </SelectItem>
                     <SelectItem
                       key={PENDING_CONTACT_STATUS}
                       value={PENDING_CONTACT_STATUS}
-                      className="bg-white hover:bg-blue-50"
+                      className="bg-gray-800 hover:bg-gray-700 text-gray-100"
                     >
                       Pending
                     </SelectItem>
                     <SelectItem
                       key={ATTENDED_CONTACT_STATUS}
                       value={ATTENDED_CONTACT_STATUS}
-                      className="bg-white hover:bg-blue-50"
+                      className="bg-gray-800 hover:bg-gray-700 text-gray-100"
                     >
                       Attended
                     </SelectItem>
                     <SelectItem
                       key={SPAM_CONTACT_STATUS}
                       value={SPAM_CONTACT_STATUS}
-                      className="bg-white hover:bg-blue-50"
+                      className="bg-gray-800 hover:bg-gray-700 text-gray-100"
                     >
                       Spam
                     </SelectItem>
@@ -190,7 +199,7 @@ export default function ContactsTable() {
                 </div>
 
                 <div className="w-full sm:w-48">
-                  <label className="block text-xs font-medium text-gray-700 mb-1">
+                  <label className="block text-xs font-medium text-gray-300 mb-2">
                     Per Page
                   </label>
                   <Select
@@ -203,38 +212,38 @@ export default function ContactsTable() {
                     size="md"
                     classNames={{
                       trigger:
-                        "bg-white border-2 border-gray-300 hover:border-blue-500 transition-all duration-200 data-[hover=true]:bg-gray-50",
-                      value: "text-gray-900 font-medium",
-                      listbox: "bg-white",
+                        "bg-gray-700/50 border-2 border-gray-600 hover:border-blue-500 transition-all duration-200 data-[hover=true]:bg-gray-700",
+                      value: "text-gray-100 font-medium",
+                      listbox: "bg-gray-800",
                       popoverContent:
-                        "bg-white shadow-xl border border-gray-200",
+                        "bg-gray-800 shadow-xl border border-gray-700",
                     }}
                   >
                     <SelectItem
                       key="10"
                       value="10"
-                      className="bg-white hover:bg-blue-50"
+                      className="bg-gray-800 hover:bg-gray-700 text-gray-100"
                     >
                       10
                     </SelectItem>
                     <SelectItem
                       key="25"
                       value="25"
-                      className="bg-white hover:bg-blue-50"
+                      className="bg-gray-800 hover:bg-gray-700 text-gray-100"
                     >
                       25
                     </SelectItem>
                     <SelectItem
                       key="50"
                       value="50"
-                      className="bg-white hover:bg-blue-50"
+                      className="bg-gray-800 hover:bg-gray-700 text-gray-100"
                     >
                       50
                     </SelectItem>
                     <SelectItem
                       key="100"
                       value="100"
-                      className="bg-white hover:bg-blue-50"
+                      className="bg-gray-800 hover:bg-gray-700 text-gray-100"
                     >
                       100
                     </SelectItem>
@@ -242,30 +251,33 @@ export default function ContactsTable() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 rounded-xl border-2 border-blue-200 shadow-sm min-w-[180px] justify-center">
-                <span className="text-sm font-medium text-gray-700">
-                  Total:
-                </span>
-                <span className="text-2xl font-bold text-blue-600">
-                  {total}
-                </span>
-                <span className="text-sm font-medium text-gray-700">
-                  Contacts
-                </span>
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+                <div className="relative flex items-center gap-3 bg-gradient-to-r from-gray-800 to-gray-900 px-6 py-4 rounded-xl border border-gray-700 shadow-xl min-w-[180px] justify-center">
+                  <span className="text-sm font-medium text-gray-300">
+                    Total:
+                  </span>
+                  <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
+                    {total}
+                  </span>
+                  <span className="text-sm font-medium text-gray-300">
+                    Contacts
+                  </span>
+                </div>
               </div>
             </div>
           </CardBody>
         </Card>
 
         {/* Table */}
-        <div className="overflow-hidden rounded-xl border border-gray-200 shadow-xl transition-all duration-300 hover:shadow-2xl bg-white">
+        <div className="overflow-hidden rounded-xl border border-gray-700/50 shadow-2xl transition-all duration-300 hover:shadow-blue-500/10 bg-gray-800/50 backdrop-blur-xl">
           <Table
             aria-label="Contact requests table"
             classNames={{
-              wrapper: "shadow-none rounded-none bg-white p-0",
-              th: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-sm uppercase tracking-wider",
-              td: "py-4 border-b border-gray-100",
-              tr: "hover:bg-blue-50 transition-colors duration-200",
+              wrapper: "shadow-none rounded-none bg-transparent p-0",
+              th: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-sm uppercase tracking-wider border-b border-gray-700",
+              td: "py-4 border-b border-gray-700/50",
+              tr: "hover:bg-gray-700/30 transition-colors duration-200",
             }}
           >
             <TableHeader>
@@ -293,10 +305,34 @@ export default function ContactsTable() {
             <TableBody
               items={contacts}
               isLoading={loading}
-              loadingContent={<Spinner size="lg" color="primary" />}
+              loadingContent={
+                <div className="py-12">
+                  <Spinner size="lg" color="primary" />
+                </div>
+              }
               emptyContent={
                 <div className="text-center py-12">
-                  <p className="text-gray-500 text-lg">No contacts found</p>
+                  <div className="mb-4">
+                    <svg
+                      className="w-16 h-16 text-gray-600 mx-auto"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+                      />
+                    </svg>
+                  </div>
+                  <p className="text-gray-400 text-lg font-medium">
+                    No contacts found
+                  </p>
+                  <p className="text-gray-500 text-sm mt-1">
+                    Try adjusting your filters
+                  </p>
                 </div>
               }
             >
@@ -323,8 +359,8 @@ export default function ContactsTable() {
               size="lg"
               classNames={{
                 cursor:
-                  "bg-gradient-to-r from-blue-600 to-indigo-600 shadow-lg",
-                item: "transition-all duration-200 hover:scale-110 bg-white",
+                  "bg-gradient-to-r from-blue-600 to-indigo-600 shadow-lg shadow-blue-500/50",
+                item: "transition-all duration-200 hover:scale-110 bg-gray-800 border border-gray-700 text-gray-300 hover:bg-gray-700",
               }}
             />
           </div>
