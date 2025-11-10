@@ -9,7 +9,12 @@ import LoadingButton from "./LoadingButton";
 import AlertBox from "./AlertBox";
 import { useRouter } from "next/navigation";
 
-export default function LoginModal({ isOpen, onClose }) {
+export default function LoginModal({
+  isOpen,
+  onClose,
+  message = null,
+  redirectUrl = "/user-dashboard",
+}) {
   const [isLoading, setIsLoading] = useState({
     google: false,
     facebook: false,
@@ -22,8 +27,8 @@ export default function LoginModal({ isOpen, onClose }) {
     setIsLoading({ ...isLoading, [provider]: true });
     try {
       const result = await signIn(provider, {
-        callbackUrl: "/user-dashboard",
-        redirect: false, // Changed to false to handle errors
+        callbackUrl: redirectUrl,
+        redirect: false,
       });
 
       if (result?.error) {
@@ -47,8 +52,8 @@ export default function LoginModal({ isOpen, onClose }) {
         });
         setIsLoading({ google: false, facebook: false });
       } else if (result?.ok && result?.url) {
-        // Successful login - redirect to dashboard
-        router.push(result.url || "/user-dashboard");
+        // Successful login - redirect to specified URL
+        router.push(result.url || redirectUrl);
         router.refresh();
       }
     } catch (error) {
@@ -111,6 +116,15 @@ export default function LoginModal({ isOpen, onClose }) {
               </ModalHeader>
               <ModalBody className="px-8 pb-8 pt-4">
                 <div className="space-y-4">
+                  {/* Custom Message Display */}
+                  {message && (
+                    <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 mb-2">
+                      <p className="text-sm text-blue-200 text-center font-medium">
+                        {message}
+                      </p>
+                    </div>
+                  )}
+
                   <LoadingButton
                     fullWidth
                     size="lg"

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 
 export default function AlertBox({ isOpen, handleClose, isSuccess, message }) {
   useEffect(() => {
@@ -10,15 +10,17 @@ export default function AlertBox({ isOpen, handleClose, isSuccess, message }) {
         toast.success(message, {
           onAutoClose: handleClose,
           onDismiss: handleClose,
+          duration: 4000,
         });
       } else {
         toast.error(message, {
           onAutoClose: handleClose,
           onDismiss: handleClose,
+          duration: 4000,
         });
       }
     }
   }, [isOpen, message, isSuccess, handleClose]);
 
-  return <Toaster position="top-right" />;
+  return null;
 }

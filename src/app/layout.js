@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import { connectToDB } from "@/utils/database";
 import ClientAppProvider from "@/providers/ClientAppProvider";
 import FloatingChatButton from "@/components/FloatingChatButton";
+import SonnerToaster from "@/components/SonnerToaster";
 
 export const metadata = {
   title:
@@ -68,6 +69,7 @@ export default async function RootLayout({ children }) {
         <ClientAppProvider>
           <Navbar />
           <main>{children}</main>
+          <SonnerToaster />
           <FloatingChatButton />
           <Footer />
         </ClientAppProvider>

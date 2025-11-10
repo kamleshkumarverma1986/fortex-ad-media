@@ -28,7 +28,7 @@ export default function KeyFeatures() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-transparent border border-white/20 rounded-xl px-6 py-6 hover:border-blue-500 transition-all duration-300"
+              className="bg-transparent border border-white/20 rounded-xl px-4 py-4 hover:border-blue-500 transition-all duration-300 text-left"
             >
               <div className="flex items-center gap-3">
                 <span className="text-green-400 text-xl">✓</span>

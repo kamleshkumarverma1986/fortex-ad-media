@@ -28,6 +28,15 @@ export default function ContactSection() {
       [name]: value,
     });
 
+    // Close alert when user starts typing again
+    if (alertState.isOpen) {
+      setAlertState({
+        isOpen: false,
+        isSuccess: false,
+        message: "",
+      });
+    }
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors({
@@ -113,7 +122,8 @@ export default function ContactSection() {
         setAlertState({
           isOpen: true,
           isSuccess: true,
-          message: "Request submitted successfully!",
+          message:
+            "Thanks! We've received your request and will contact you shortly.",
         });
         setFormData({
           name: "",
