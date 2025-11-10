@@ -55,6 +55,10 @@ export const metadata = {
   themeColor: "#ffffff",
 };
 
+export const viewport = {
+  themeColor: "#000000",
+};
+
 export default async function RootLayout({ children }) {
   // Connecting the mongodb on the first page load
   await connectToDB();
@@ -63,7 +67,6 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
       </head>
       <body>
         <ClientAppProvider>

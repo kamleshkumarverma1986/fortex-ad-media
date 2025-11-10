@@ -14,7 +14,7 @@ import {
   FaLock,
 } from "react-icons/fa";
 
-export default function CheckoutPage() {
+export default function Checkout() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();

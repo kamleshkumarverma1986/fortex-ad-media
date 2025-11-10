@@ -1,5 +1,14 @@
+import { Suspense } from "react";
 import Checkout from "@/components/Checkout";
 
-export default async function ServerCheckoutPage() {
-  return <Checkout />;
+export default function ServerCheckoutPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="text-white text-center p-10">Loading checkout...</div>
+      }
+    >
+      <Checkout />
+    </Suspense>
+  );
 }
