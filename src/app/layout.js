@@ -45,6 +45,13 @@ export const metadata = {
     canonical: "https://www.fortex.co.in/",
   },
   metadataBase: new URL("https://www.fortex.co.in"),
+  icons: {
+    icon: "/company-icons/favicon.ico",
+    shortcut: "/company-icons/favicon.ico",
+    apple: "/company-icons/apple-touch-icon.png",
+  },
+  manifest: "/company-icons/site.webmanifest",
+  themeColor: "#ffffff",
 };
 
 export default async function RootLayout({ children }) {
