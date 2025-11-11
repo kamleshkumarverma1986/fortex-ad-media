@@ -62,6 +62,10 @@ export default function Navbar() {
   }, [scrolled]);
 
   const scrollToSection = (sectionId) => {
+    if (sectionId === "contact") {
+      router.push("/contact");
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -74,7 +78,8 @@ export default function Navbar() {
     { id: "services", label: "Services" },
     { id: "testimonial", label: "Testimonial" },
     { id: "pricing", label: "Pricing" },
-    { id: "about", label: "About" },
+    // { id: "about", label: "About" }, // Lets hide this section for now
+    { id: "reach-us", label: "Reach Us" },
     { id: "contact", label: "Contact" },
   ];
 

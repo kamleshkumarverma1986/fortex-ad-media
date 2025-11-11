@@ -7,7 +7,7 @@ import CustomInput from "./CustomInput";
 import CustomTextarea from "./CustomTextarea";
 import { validatePhoneNumber } from "@/utils/helper";
 
-export default function ContactSection() {
+export default function ReachUs() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -142,7 +142,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-[#001a4d]">
+    <section id="reach-us" className="py-20 bg-[#001a4d]">
       <AlertBox
         isOpen={alertState.isOpen}
         handleClose={handleAlertClose}

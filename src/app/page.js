@@ -8,9 +8,10 @@ import FacebookCampaign from "@/components/FacebookCampaign";
 import InstagramManagement from "@/components/InstagramManagement";
 import TeamSection from "@/components/TeamSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import ContactSection from "@/components/ContactSection";
 import BrandPotential from "@/components/BrandPotential";
 import PricingSection from "@/components/PricingSection";
+import ReachUs from "@/components/ReachUs";
+import Contact from "@/components/Contact";
 
 export default function Home() {
   return (
@@ -21,10 +22,11 @@ export default function Home() {
       <FacebookCampaign />
       <InstagramManagement />
       <PricingSection />
-      <TeamSection />
+      {/* <TeamSection /> */}
       <TestimonialsSection />
-      <ContactSection />
       <BrandPotential />
+      <ReachUs />
+      <Contact />
     </>
   );
 }
