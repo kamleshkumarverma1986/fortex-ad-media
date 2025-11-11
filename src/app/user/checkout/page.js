@@ -4,9 +4,7 @@ import Checkout from "@/components/Checkout";
 export default function ServerCheckoutPage() {
   return (
     <Suspense
-      fallback={
-        <div className="text-white text-center p-10">Loading checkout...</div>
-      }
+      fallback={<div className="text-white text-center p-10">Loading...</div>}
     >
       <Checkout />
     </Suspense>

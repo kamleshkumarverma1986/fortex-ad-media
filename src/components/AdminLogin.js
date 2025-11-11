@@ -125,6 +125,7 @@ export default function AdminLogin() {
               icon={FiMail}
               value={formData.email}
               onChange={handleFormChange}
+              label="Email"
               placeholder="Enter your email"
               disabled={isLogging}
             />
@@ -139,6 +140,7 @@ export default function AdminLogin() {
               icon={FiLock}
               value={formData.password}
               onChange={handleFormChange}
+              label="Password"
               placeholder="Enter your password"
               disabled={isLogging}
             />

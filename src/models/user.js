@@ -39,6 +39,10 @@ const UserSchema = new Schema({
         required: true,
         trim: true,
       },
+      businessDetails: {
+        type: String,
+        required: true,
+      },
       phoneNumber: {
         type: String,
         trim: true,

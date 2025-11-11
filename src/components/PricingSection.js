@@ -17,8 +17,8 @@ export default function PricingSection() {
     // Check if user is logged in
     if (status === "authenticated") {
       // User is logged in, proceed with plan selection
-      // You can redirect to checkout or handle the plan selection here
-      router.push(`/checkout?plan=${plan.title.toLowerCase()}`);
+      // You can redirect to /user/checkout or handle the plan selection here
+      router.push(`/user/checkout?plan=${plan.title.toLowerCase()}`);
     } else {
       // User is not logged in, show login modal
       setSelectedPlan(plan);
@@ -102,7 +102,7 @@ export default function PricingSection() {
         }
         redirectUrl={
           selectedPlan
-            ? `/checkout?plan=${selectedPlan.title.toLowerCase()}`
+            ? `/user/checkout?plan=${selectedPlan.title.toLowerCase()}`
             : "/user/dashboard"
         }
       />

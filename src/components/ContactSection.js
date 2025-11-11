@@ -5,6 +5,7 @@ import AlertBox from "@/components/AlertBox";
 import LoadingButton from "@/components/LoadingButton";
 import CustomInput from "./CustomInput";
 import CustomTextarea from "./CustomTextarea";
+import { validatePhoneNumber } from "@/utils/helper";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -52,16 +53,6 @@ export default function ContactSection() {
       isSuccess: false,
       message: "",
     });
-  };
-
-  const validatePhoneNumber = (phone) => {
-    // Remove all spaces and special characters
-    const cleaned = phone.replace(/\D/g, "");
-
-    // Check if it's a valid Indian phone number (10 digits starting with 6-9)
-    const indianPhoneRegex = /^[6-9]\d{9}$/;
-
-    return indianPhoneRegex.test(cleaned);
   };
 
   const validateEmail = (email) => {
@@ -201,7 +192,8 @@ export default function ContactSection() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Enter your full Name"
+                  label="Name"
+                  placeholder="Enter your name"
                   variant="bordered"
                   isInvalid={!!errors.name}
                 />
@@ -217,6 +209,7 @@ export default function ContactSection() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  label="Email"
                   placeholder="John@example.com"
                   variant="bordered"
                   isInvalid={!!errors.email}
@@ -233,6 +226,7 @@ export default function ContactSection() {
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleChange}
+                  label="Phone number"
                   placeholder="Phone number (10 digits)"
                   variant="bordered"
                   maxLength={10}
@@ -251,6 +245,7 @@ export default function ContactSection() {
                   name="businessDetails"
                   value={formData.businessDetails}
                   onChange={handleChange}
+                  label="Business Details"
                   placeholder="Describe your business"
                   variant="bordered"
                   minRows={4}
