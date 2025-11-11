@@ -103,7 +103,7 @@ export default function PricingSection() {
         redirectUrl={
           selectedPlan
             ? `/checkout?plan=${selectedPlan.title.toLowerCase()}`
-            : "/user-dashboard"
+            : "/user/dashboard"
         }
       />
     </>

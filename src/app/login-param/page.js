@@ -17,7 +17,7 @@ export default async function ServerAdminLogin() {
 
   // If session already exists, redirect to dashboard
   if (session) {
-    redirect("/admin-dashboard");
+    redirect("/admin/dashboard");
   }
 
   // User is not logged in, show login page

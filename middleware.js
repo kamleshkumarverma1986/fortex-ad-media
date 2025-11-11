@@ -31,14 +31,20 @@ export async function middleware(request) {
     return NextResponse.next();
   }
 
-  // Protect admin dashboard - redirect to login if NOT authenticated
-  if (path.startsWith("/admin-dashboard")) {
+  // Protect admin routes - redirect to login if NOT authenticated or NOT admin
+  if (path.startsWith("/admin")) {
     if (!token) {
       const loginUrl = new URL("/login-param", request.url);
       return NextResponse.redirect(loginUrl);
     }
 
-    // User is authenticated, allow access but prevent caching
+    if (!token.isAdmin) {
+      // Redirect non-admin users to user dashboard
+      const userUrl = new URL("/user/dashboard", request.url);
+      return NextResponse.redirect(userUrl);
+    }
+
+    // User is admin, allow access but prevent caching
     const response = NextResponse.next();
     response.headers.set(
       "Cache-Control",
@@ -50,10 +56,38 @@ export async function middleware(request) {
     return response;
   }
 
-  // Protect login page - redirect to dashboard if ALREADY authenticated
+  // Protect user routes - redirect to login if NOT authenticated
+  if (path.startsWith("/user")) {
+    if (!token) {
+      const loginUrl = new URL("/login-param", request.url);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    if (token.isAdmin) {
+      // Redirect admin users to admin dashboard
+      const adminUrl = new URL("/admin/dashboard", request.url);
+      return NextResponse.redirect(adminUrl);
+    }
+
+    // User is authenticated and not admin, allow access but prevent caching
+    const response = NextResponse.next();
+    response.headers.set(
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+    );
+    response.headers.set("Pragma", "no-cache");
+    response.headers.set("Expires", "0");
+
+    return response;
+  }
+
+  // Protect login page - redirect to appropriate dashboard if ALREADY authenticated
   if (path.startsWith("/login-param")) {
     if (token) {
-      const dashboardUrl = new URL("/admin-dashboard", request.url);
+      // Redirect based on user type
+      const dashboardUrl = token.isAdmin
+        ? new URL("/admin/dashboard", request.url)
+        : new URL("/user/dashboard", request.url);
       return NextResponse.redirect(dashboardUrl);
     }
 
@@ -77,7 +111,8 @@ export async function middleware(request) {
 export const config = {
   matcher: [
     "/api/admin/:path*", // Protects admin API routes
-    "/admin-dashboard/:path*", // Protects admin dashboard
+    "/admin/:path*", // Protects all admin routes
+    "/user/:path*", // Protects all user routes
     "/login-param", // Protects login page
   ],
 };

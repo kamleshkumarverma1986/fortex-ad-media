@@ -7,3 +7,6 @@ export const CONTACT_STATUSES = [
   ATTENDED_CONTACT_STATUS,
   SPAM_CONTACT_STATUS,
 ];
+
+export const helpCenterWhatsappLink =
+  "https://api.whatsapp.com/send?phone=+15558610964&text=👋 Hey, I want to know more about your service.";

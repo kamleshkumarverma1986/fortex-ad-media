@@ -45,7 +45,7 @@ export default function AdminLogin() {
   // Redirect if already logged in as admin
   useEffect(() => {
     if (status === "authenticated" && session?.user?.isAdmin) {
-      router.push("/admin-dashboard");
+      router.push("/admin/dashboard");
     }
   }, [status, session, router]);
 
@@ -68,7 +68,7 @@ export default function AdminLogin() {
         });
         setIsLogging(false);
       } else if (result?.ok) {
-        router.push("/admin-dashboard");
+        router.push("/admin/dashboard");
         router.refresh();
       }
     } catch (error) {

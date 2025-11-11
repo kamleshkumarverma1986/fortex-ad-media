@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Copyright from "./Copyright";
+import { helpCenterWhatsappLink } from "@/utils/helper";
 
 export default function Footer() {
   return (
@@ -89,7 +90,7 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">HELP</h4>
             <div className="space-y-3">
               <Link
-                href="https://api.whatsapp.com/send?phone=+15558610964&text=👋 Hey, I want to know more about your service."
+                href={helpCenterWhatsappLink}
                 className="block text-white/70 hover:text-white transition"
               >
                 Support

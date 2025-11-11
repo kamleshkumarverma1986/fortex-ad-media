@@ -52,7 +52,6 @@ export const metadata = {
     apple: "/company-icons/apple-touch-icon.png",
   },
   manifest: "/company-icons/site.webmanifest",
-  themeColor: "#ffffff",
 };
 
 export const viewport = {

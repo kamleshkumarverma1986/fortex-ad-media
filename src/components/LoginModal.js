@@ -13,7 +13,7 @@ export default function LoginModal({
   isOpen,
   onClose,
   message = null,
-  redirectUrl = "/user-dashboard",
+  redirectUrl = "/user/dashboard",
 }) {
   const [isLoading, setIsLoading] = useState({
     google: false,

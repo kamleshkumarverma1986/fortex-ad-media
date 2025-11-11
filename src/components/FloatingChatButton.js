@@ -1,6 +1,7 @@
 "use client";
 import { RiWhatsappFill } from "react-icons/ri";
 import { useState } from "react";
+import { helpCenterWhatsappLink } from "@/utils/helper";
 
 export default function FloatingChatButton() {
   const [isHovered, setIsHovered] = useState(false);
@@ -30,7 +31,7 @@ export default function FloatingChatButton() {
 
         {/* Button as Link */}
         <a
-          href="https://api.whatsapp.com/send?phone=+15558610964&text=👋 Hey, I want to know more about your service."
+          href={helpCenterWhatsappLink}
           rel="noopener noreferrer"
           className="relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-110"
         >

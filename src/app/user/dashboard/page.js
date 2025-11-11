@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import UserDashboard from "@/components/UserDashboard";
 
 export const dynamic = "force-dynamic";
@@ -19,11 +19,11 @@ export default async function ServerUserDashboard() {
     redirect("/");
   }
 
-  // If user is an admin, can't redirect to user-dashboard
+  // If user is an admin, can't redirect to user/dashboard
   if (session.user?.isAdmin) {
     redirect("/");
   }
 
-  // User is authenticated AND is a user - render the user-dashboard
+  // User is authenticated AND is a user - render the user/dashboard
   return <UserDashboard session={session} />;
 }

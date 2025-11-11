@@ -95,9 +95,9 @@ export default function Navbar() {
 
   const handleDashboardClick = () => {
     if (session?.user?.isAdmin) {
-      router.push("/admin-dashboard");
+      router.push("/admin/dashboard");
     } else {
-      router.push("/user-dashboard");
+      router.push("/user/dashboard");
     }
   };
 

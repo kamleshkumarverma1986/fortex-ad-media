@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 
 let isConnected = false; // track the connection
 
+const DATABASE_NAME = "fortex-ad-media";
+
 export const connectToDB = async () => {
   mongoose.set("strictQuery", true);
 
@@ -12,7 +14,7 @@ export const connectToDB = async () => {
 
   try {
     await mongoose.connect(process.env.MONGO_DATABASE_URL, {
-      dbName: "fortex-ad-media",
+      dbName: DATABASE_NAME,
     });
 
     isConnected = true;
