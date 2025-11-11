@@ -63,6 +63,7 @@ export default function Navbar() {
 
   const scrollToSection = (sectionId) => {
     if (sectionId === "contact") {
+      setIsMobileMenuOpen(false);
       router.push("/contact");
       return;
     }
