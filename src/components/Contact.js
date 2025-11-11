@@ -36,7 +36,7 @@ export default function Contact() {
         </div>
 
         {/* Contact Card */}
-        <Card className="bg-white/5 backdrop-blur-2xl border border-white/10 hover:border-[#9F6B6B]/30 transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.05)] rounded-3xl">
+        <Card className="bg-white/5 backdrop-blur-2xl border border-white/10 hover:border-[#9F6B6B]/30 transition-all duration-500 rounded-3xl">
           <CardBody className="p-10 md:p-14 space-y-10">
             <p className="text-white/70 text-lg text-center md:text-left">
               You may contact us using the information below:

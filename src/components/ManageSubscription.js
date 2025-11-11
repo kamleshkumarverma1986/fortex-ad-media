@@ -497,7 +497,7 @@ export default function ManageSubscription() {
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button variant="light" onPress={onCancelClose}>
+              <Button className="dark" variant="light" onPress={onCancelClose}>
                 Keep Subscription
               </Button>
               <Button
