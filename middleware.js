@@ -31,7 +31,7 @@ export async function middleware(request) {
     return NextResponse.next();
   }
 
-  // Protect admin routes - redirect to login if NOT authenticated or NOT admin
+  // Protect admin routes - redirect to login-param if NOT authenticated or NOT admin
   if (path.startsWith("/admin")) {
     if (!token) {
       const loginUrl = new URL("/login-param", request.url);
@@ -56,11 +56,13 @@ export async function middleware(request) {
     return response;
   }
 
-  // Protect user routes - redirect to login if NOT authenticated
+  // Protect user routes - redirect to HOME if NOT authenticated (NOT login-param!)
   if (path.startsWith("/user")) {
     if (!token) {
-      const loginUrl = new URL("/login-param", request.url);
-      return NextResponse.redirect(loginUrl);
+      // CRITICAL: Normal users should NEVER see login-param page
+      // Redirect to home page instead
+      const homeUrl = new URL("/", request.url);
+      return NextResponse.redirect(homeUrl);
     }
 
     if (token.isAdmin) {
@@ -81,17 +83,17 @@ export async function middleware(request) {
     return response;
   }
 
-  // Protect login page - redirect to appropriate dashboard if ALREADY authenticated
+  // Protect login-param page - ONLY admins can access when not authenticated
   if (path.startsWith("/login-param")) {
     if (token) {
-      // Redirect based on user type
+      // Already authenticated - redirect based on user type
       const dashboardUrl = token.isAdmin
         ? new URL("/admin/dashboard", request.url)
         : new URL("/user/dashboard", request.url);
       return NextResponse.redirect(dashboardUrl);
     }
 
-    // User is not authenticated, allow access to login page but prevent caching
+    // Not authenticated - allow access to login page but prevent caching
     const response = NextResponse.next();
     response.headers.set(
       "Cache-Control",
