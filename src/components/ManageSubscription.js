@@ -232,7 +232,7 @@ export default function ManageSubscription() {
                   }`}
                 />
                 <div>
-                  <h3 className="font-bold text-lg mb-1">
+                  <h3 className="text-white/70 font-bold text-lg mb-1">
                     {isExpired
                       ? "Subscription Expired"
                       : "Subscription Expiring Soon"}
@@ -551,7 +551,7 @@ export default function ManageSubscription() {
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button variant="light" onPress={onRenewClose}>
+              <Button variant="dark light" onPress={onRenewClose}>
                 Cancel
               </Button>
               <Button
