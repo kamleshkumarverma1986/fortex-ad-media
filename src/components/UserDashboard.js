@@ -6,7 +6,6 @@ import { Card, CardBody, Button, Chip, Divider } from "@nextui-org/react";
 import PricingSection from "./PricingSection";
 import {
   FaBuilding,
-  FaCalendarAlt,
   FaCreditCard,
   FaCheckCircle,
   FaTimesCircle,
@@ -80,34 +79,34 @@ export default function UserDashboard({ session }) {
   }
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-20 text-white">
+    <section className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-12 text-white pt-20 pb-20">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Premium Header */}
-        <div className="mb-12">
+        {/* Compact Premium Header */}
+        <div className="mb-8">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-4xl font-bold mb-1 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
                 Welcome back, {session?.user?.name || "User"}! 👋
               </h1>
-              <p className="text-white/60 text-lg">
+              <p className="text-white/50 text-sm">
                 {hasActiveSubscription
                   ? "Manage your subscriptions and billing"
                   : "Get started with your first subscription"}
               </p>
             </div>
             {businesses.length > 0 && (
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2">
                 <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all"
+                  size="md"
+                  className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all"
                   startContent={<FaPlus />}
                   onPress={() => router.push("/pricing")}
                 >
                   Add New Business
                 </Button>
                 <Button
-                  size="lg"
-                  className="bg-white/10 hover:bg-white/20 text-white border border-white/20"
+                  size="md"
+                  className="bg-white/5 hover:bg-white/10 text-white border border-white/10"
                   startContent={<FaFileInvoice />}
                   onPress={() => router.push("/user/invoices")}
                 >
@@ -121,19 +120,19 @@ export default function UserDashboard({ session }) {
         {/* Show No Subscription Card only if no businesses */}
         {businesses.length === 0 && (
           <>
-            <Card className="bg-gradient-to-br from-slate-900/50 to-slate-800/50 border border-white/10 backdrop-blur-xl shadow-2xl mb-12 max-w-4xl mx-auto">
-              <CardBody className="text-center py-16 px-8">
-                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FaCrown className="text-white text-3xl" />
+            <Card className="dark bg-gradient-to-br from-slate-900/50 to-slate-800/50 border border-white/10 backdrop-blur-xl shadow-2xl mb-12 max-w-4xl mx-auto">
+              <CardBody className="text-center py-12 px-8">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <FaCrown className="text-white text-2xl" />
                 </div>
-                <h2 className="text-3xl font-bold mb-3 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                <h2 className="text-2xl font-bold mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                   Ready to Get Started?
                 </h2>
-                <p className="text-white/70 text-lg mb-6 max-w-2xl mx-auto">
+                <p className="text-white/60 mb-6 max-w-lg mx-auto">
                   Choose the perfect plan for your business and unlock powerful
                   features to grow your brand.
                 </p>
-                <div className="flex items-center justify-center gap-3 text-sm text-white/50">
+                <div className="flex items-center justify-center gap-3 text-xs text-white/50">
                   <div className="flex items-center gap-2">
                     <FaCheckCircle className="text-green-400" />
                     <span>No credit card required</span>
@@ -156,17 +155,17 @@ export default function UserDashboard({ session }) {
 
         {/* Show Active Businesses */}
         {businesses.length > 0 && (
-          <div className="space-y-8">
-            {/* Stats Cards */}
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-blue-500/20 backdrop-blur-xl shadow-lg">
-                <CardBody className="p-6">
+          <div className="space-y-6">
+            {/* Compact Stats Cards */}
+            <div className="grid md:grid-cols-3 gap-4 mb-6">
+              <Card className="dark bg-gradient-to-br from-slate-800/60 to-slate-900/60 border border-blue-500/20 backdrop-blur-xl shadow-lg">
+                <CardBody className="p-5">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-white/60 text-sm font-medium mb-1">
+                      <p className="text-white/50 text-xs font-medium mb-1">
                         Active Subscriptions
                       </p>
-                      <p className="text-4xl font-bold text-white">
+                      <p className="text-3xl font-bold text-white">
                         {
                           businesses.filter(
                             (b) => b.subscription?.status === "active"
@@ -174,39 +173,39 @@ export default function UserDashboard({ session }) {
                         }
                       </p>
                     </div>
-                    <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30">
-                      <FaCheckCircle className="text-white text-2xl" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                      <FaCheckCircle className="text-white text-xl" />
                     </div>
                   </div>
                 </CardBody>
               </Card>
 
-              <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-purple-500/20 backdrop-blur-xl shadow-lg">
-                <CardBody className="p-6">
+              <Card className="dark bg-gradient-to-br from-slate-800/60 to-slate-900/60 border border-purple-500/20 backdrop-blur-xl shadow-lg">
+                <CardBody className="p-5">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-white/60 text-sm font-medium mb-1">
+                      <p className="text-white/50 text-xs font-medium mb-1">
                         Total Businesses
                       </p>
-                      <p className="text-4xl font-bold text-white">
+                      <p className="text-3xl font-bold text-white">
                         {businesses.length}
                       </p>
                     </div>
-                    <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/30">
-                      <FaBuilding className="text-white text-2xl" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
+                      <FaBuilding className="text-white text-xl" />
                     </div>
                   </div>
                 </CardBody>
               </Card>
 
-              <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-green-500/20 backdrop-blur-xl shadow-lg">
-                <CardBody className="p-6">
+              <Card className="dark bg-gradient-to-br from-slate-800/60 to-slate-900/60 border border-green-500/20 backdrop-blur-xl shadow-lg">
+                <CardBody className="p-5">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-white/60 text-sm font-medium mb-1">
+                      <p className="text-white/50 text-xs font-medium mb-1">
                         Total Investment
                       </p>
-                      <p className="text-4xl font-bold text-white">
+                      <p className="text-3xl font-bold text-white">
                         ₹
                         {businesses
                           .filter((b) => b.subscription?.status === "active")
@@ -217,8 +216,8 @@ export default function UserDashboard({ session }) {
                           .toLocaleString()}
                       </p>
                     </div>
-                    <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/30">
-                      <FaCreditCard className="text-white text-2xl" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/20">
+                      <FaCreditCard className="text-white text-xl" />
                     </div>
                   </div>
                 </CardBody>
@@ -226,29 +225,29 @@ export default function UserDashboard({ session }) {
             </div>
 
             {/* Business Cards */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full"></div>
+            <div className="space-y-4">
+              <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                <div className="w-1 h-6 bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full"></div>
                 Your Subscriptions
               </h2>
 
               {businesses.map((business, index) => (
                 <Card
                   key={business._id || index}
-                  className="bg-slate-900/50 border border-white/10 backdrop-blur-xl shadow-2xl hover:border-white/20 hover:shadow-blue-500/10 transition-all duration-300"
+                  className="bg-slate-900/40 border border-white/10 backdrop-blur-xl shadow-xl hover:border-white/20 hover:shadow-blue-500/10 transition-all duration-300"
                 >
-                  <CardBody className="p-8">
-                    {/* Header Section */}
-                    <div className="flex items-start justify-between mb-6">
-                      <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
-                          <FaBuilding className="text-white text-2xl" />
+                  <CardBody className="p-5">
+                    {/* Compact Header Section */}
+                    <div className="flex items-center justify-between mb-5 pb-5 border-b border-white/10">
+                      <div className="flex items-center gap-3">
+                        <div className="w-11 h-11 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center shadow-lg">
+                          <FaBuilding className="text-white text-lg" />
                         </div>
                         <div>
-                          <h3 className="text-2xl font-bold text-white mb-1">
+                          <h3 className="text-lg font-bold text-white">
                             {business.businessName}
                           </h3>
-                          <p className="text-white/60">
+                          <p className="text-white/50 text-xs">
                             {business.businessDetails}
                           </p>
                         </div>
@@ -256,7 +255,7 @@ export default function UserDashboard({ session }) {
                       <Chip
                         color={getStatusColor(business.subscription?.status)}
                         variant="flat"
-                        size="lg"
+                        size="md"
                         className="font-semibold"
                         startContent={
                           business.subscription?.status === "active" ? (
@@ -271,81 +270,84 @@ export default function UserDashboard({ session }) {
                       </Chip>
                     </div>
 
-                    <div className="grid lg:grid-cols-3 gap-6">
-                      {/* Contact Information */}
-                      <div className="lg:col-span-2 space-y-4">
-                        <div className="bg-white/5 rounded-xl p-5 space-y-4">
-                          <h4 className="text-sm font-semibold text-white/80 uppercase tracking-wider mb-3">
+                    <div className="grid lg:grid-cols-12 gap-5">
+                      {/* Contact Information - 5 columns */}
+                      <div className="lg:col-span-5">
+                        <div className="bg-white/5 rounded-lg p-4 h-full">
+                          <h4 className="text-xs font-semibold text-white/60 uppercase tracking-wider mb-3 flex items-center gap-2">
+                            <span className="w-1 h-3 bg-blue-500 rounded-full"></span>
                             Contact Information
                           </h4>
 
-                          <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <FaPhone className="text-blue-400" />
-                            </div>
-                            <div className="flex-1">
-                              <p className="text-white/50 text-xs mb-1">
-                                Phone Number
-                              </p>
-                              <p className="text-white font-medium">
-                                {business.phoneNumber}
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <FaMapMarkerAlt className="text-blue-400" />
-                            </div>
-                            <div className="flex-1">
-                              <p className="text-white/50 text-xs mb-1">
-                                Business Address
-                              </p>
-                              <p className="text-white font-medium leading-relaxed">
-                                {business.address}
-                              </p>
-                            </div>
-                          </div>
-
-                          {business.website && (
-                            <div className="flex items-start gap-3">
-                              <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <FaGlobe className="text-blue-400" />
+                          <div className="space-y-3">
+                            <div className="flex items-start gap-2.5">
+                              <div className="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <FaPhone className="text-blue-400 text-xs" />
                               </div>
-                              <div className="flex-1">
-                                <p className="text-white/50 text-xs mb-1">
-                                  Website
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white/40 text-[10px] mb-0.5">
+                                  Phone Number
                                 </p>
-                                <a
-                                  href={business.website}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-blue-400 hover:text-blue-300 font-medium hover:underline transition-colors break-all"
-                                >
-                                  {business.website}
-                                </a>
+                                <p className="text-white text-sm font-medium">
+                                  {business.phoneNumber}
+                                </p>
                               </div>
                             </div>
-                          )}
+
+                            <div className="flex items-start gap-2.5">
+                              <div className="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <FaMapMarkerAlt className="text-blue-400 text-xs" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white/40 text-[10px] mb-0.5">
+                                  Business Address
+                                </p>
+                                <p className="text-white text-sm font-medium break-words">
+                                  {business.address}
+                                </p>
+                              </div>
+                            </div>
+
+                            {business.website && (
+                              <div className="flex items-start gap-2.5">
+                                <div className="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                  <FaGlobe className="text-blue-400 text-xs" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-white/40 text-[10px] mb-0.5">
+                                    Website
+                                  </p>
+                                  <a
+                                    href={business.website}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-400 hover:text-blue-300 text-sm font-medium hover:underline transition-colors truncate block"
+                                  >
+                                    {business.website}
+                                  </a>
+                                </div>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
 
-                      {/* Subscription Details */}
-                      <div className="space-y-4">
-                        <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-xl p-5 border border-white/10">
-                          <div className="flex items-center gap-2 mb-4">
-                            <FaCrown className="text-yellow-400" />
-                            <h4 className="font-semibold text-white">
+                      {/* Subscription Details - 4 columns */}
+                      <div className="lg:col-span-4">
+                        <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-lg p-4 border border-white/10 h-full">
+                          <div className="flex items-center gap-2 mb-3">
+                            <FaCrown className="text-yellow-400 text-sm" />
+                            <h4 className="font-semibold text-white text-sm">
                               Subscription Plan
                             </h4>
                           </div>
 
-                          <div className="space-y-3">
+                          <div className="space-y-2.5">
                             <div>
-                              <p className="text-white/50 text-xs mb-1">
+                              <p className="text-white/40 text-[10px] mb-0.5">
                                 Plan Type
                               </p>
-                              <p className="text-white font-semibold text-lg">
+                              <p className="text-white font-semibold">
                                 {business.subscription?.planType}
                               </p>
                             </div>
@@ -353,10 +355,10 @@ export default function UserDashboard({ session }) {
                             <Divider className="bg-white/10" />
 
                             <div className="flex justify-between items-center">
-                              <span className="text-white/60 text-sm">
+                              <span className="text-white/50 text-xs">
                                 Duration
                               </span>
-                              <span className="text-white font-medium">
+                              <span className="text-white font-medium text-sm">
                                 {business.subscription?.duration === "monthly"
                                   ? "Monthly"
                                   : business.subscription?.duration ===
@@ -367,7 +369,7 @@ export default function UserDashboard({ session }) {
                             </div>
 
                             <div className="flex justify-between items-center">
-                              <span className="text-white/60 text-sm">
+                              <span className="text-white/50 text-xs">
                                 Amount
                               </span>
                               <span className="text-white font-bold text-lg">
@@ -380,10 +382,10 @@ export default function UserDashboard({ session }) {
                               <>
                                 <Divider className="bg-white/10" />
                                 <div className="flex justify-between items-center">
-                                  <span className="text-white/60 text-sm">
+                                  <span className="text-white/50 text-xs">
                                     Start Date
                                   </span>
-                                  <span className="text-white font-medium text-sm">
+                                  <span className="text-white/80 font-medium text-xs">
                                     {formatDate(
                                       business.subscription.startDate
                                     )}
@@ -394,34 +396,36 @@ export default function UserDashboard({ session }) {
 
                             {business.subscription?.endDate && (
                               <div className="flex justify-between items-center">
-                                <span className="text-white/60 text-sm">
+                                <span className="text-white/50 text-xs">
                                   End Date
                                 </span>
-                                <span className="text-white font-medium text-sm">
+                                <span className="text-white/80 font-medium text-xs">
                                   {formatDate(business.subscription.endDate)}
                                 </span>
                               </div>
                             )}
                           </div>
                         </div>
+                      </div>
 
-                        {/* Recent Payment */}
+                      {/* Recent Payment - 3 columns */}
+                      <div className="lg:col-span-3">
                         {business.payments && business.payments.length > 0 && (
-                          <div className="bg-white/5 rounded-xl p-5 border border-white/10">
-                            <h5 className="text-sm font-semibold text-white/80 mb-3">
+                          <div className="bg-white/5 rounded-lg p-4 border border-white/10 h-full">
+                            <h5 className="text-xs font-semibold text-white/60 mb-3 uppercase tracking-wider">
                               Recent Payment
                             </h5>
-                            <div className="space-y-2">
-                              <div className="flex justify-between items-center">
-                                <span className="text-white/50 text-xs">
+                            <div className="space-y-2.5">
+                              <div className="flex justify-between items-start gap-2">
+                                <span className="text-white/40 text-[10px]">
                                   Order ID
                                 </span>
-                                <span className="text-white/80 font-mono text-xs">
+                                <span className="text-white/70 font-mono text-[10px] text-right break-all">
                                   ...{business.payments[0].orderId.slice(-12)}
                                 </span>
                               </div>
                               <div className="flex justify-between items-center">
-                                <span className="text-white/50 text-xs">
+                                <span className="text-white/40 text-[10px]">
                                   Status
                                 </span>
                                 <Chip
@@ -439,11 +443,11 @@ export default function UserDashboard({ session }) {
                                   {business.payments[0].status}
                                 </Chip>
                               </div>
-                              <div className="flex justify-between items-center">
-                                <span className="text-white/50 text-xs">
+                              <div className="flex justify-between items-start gap-2">
+                                <span className="text-white/40 text-[10px]">
                                   Date
                                 </span>
-                                <span className="text-white/80 text-xs">
+                                <span className="text-white/70 text-[10px] text-right">
                                   {formatDate(business.payments[0].createdAt)}
                                 </span>
                               </div>
@@ -454,11 +458,11 @@ export default function UserDashboard({ session }) {
                     </div>
 
                     {/* Action Buttons */}
-                    <Divider className="bg-white/10 my-6" />
-                    <div className="flex flex-wrap gap-3">
+                    <Divider className="bg-white/10 my-4" />
+                    <div className="flex flex-wrap gap-2">
                       <Button
                         size="md"
-                        className="bg-white/10 hover:bg-white/20 text-white border border-white/20"
+                        className="bg-white/5 hover:bg-white/10 text-white border border-white/10"
                         startContent={<FaCog />}
                         onPress={() =>
                           router.push(

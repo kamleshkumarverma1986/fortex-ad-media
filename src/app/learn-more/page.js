@@ -13,10 +13,11 @@ export default function LearnMore() {
           Learn More About Us
         </h2>
         <p className="text-lg text-white/70 max-w-3xl mx-auto mb-12 leading-relaxed">
-          At <span className="text-blue-400 font-semibold">Forex AD Media</span>
-          , we specialize in empowering offline stores to achieve greater
-          business growth through strategic advertising. We understand the
-          unique challenges offline businesses face in attracting customers and
+          At{" "}
+          <span className="text-blue-400 font-semibold">Fortex AD Media</span>,
+          we specialize in empowering offline stores to achieve greater business
+          growth through strategic advertising. We understand the unique
+          challenges offline businesses face in attracting customers and
           increasing sales.
         </p>
         <p className="text-lg text-white/70 max-w-3xl mx-auto mb-12 leading-relaxed">

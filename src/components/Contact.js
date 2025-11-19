@@ -104,7 +104,7 @@ export default function Contact() {
 function ContactItem({ icon, title, value }) {
   return (
     <div className="flex items-start gap-4 p-5 rounded-2xl bg-white/5 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-[#9F6B6B]/20 group">
-      <div className="p-3 rounded-xl bg-[#9F6B6B]/10 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+      <div className="rounded-xl bg-[#9F6B6B]/10 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
         {icon}
       </div>
       <div>
